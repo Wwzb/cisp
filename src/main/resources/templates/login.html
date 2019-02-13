@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ok-admin</title>
+  <title>登录</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="keywords" content="登录页面">
   <meta name="description"
@@ -11,25 +11,30 @@
   <link rel="stylesheet" href="/static/layui/css/layui.css">
   <link rel="stylesheet" href="http://at.alicdn.com/t/font_693759_ask70l8wanw.css">
   <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css"/>
-  <link rel="stylesheet" href="/static/css/login2.css"/>
+  <link rel="stylesheet" href="/static/css/login.css"/>
   <link rel="stylesheet" href="/static/css/nprogress.css">
 </head>
 <body>
 <div class="login-box animated rotateIn">
   <div class="head"></div>
+  <div style="color: white" align="center"><font size="5">平台登录</font></div>
   <div class="input-box">
     <form class="layui-form" action="">
-      <input type="text" name="username" required lay-verify="required" placeholder="邮箱/手机号/平台账号"
+      <input type="text" name="username" required lay-verify="required" placeholder="平台账号"
              autocomplete="off" class="layui-input">
       <input type="password" name="password" required lay-verify="required" placeholder="密码"
              autocomplete="off" class="layui-input">
       <div class="remember-me">
-        <span>记住我：</span>
+        <span style="color: white">记住我：</span>
         <input type="checkbox" name="zzz" lay-skin="switch" lay-text="是|否">
       </div>
-      <input type="submit" value="登 录" lay-submit lay-filter="login">
+      <input type="submit" value="登   录" lay-submit lay-filter="login">
     </form>
-    <div class="oauth">
+    <div style="margin-top: 10px">
+      <a href="#" style="color: white">&lt;&lt;返回首页</a>
+      <a href="#" style="color: white;margin-left: 130px">注册账号&gt;&gt;</a>
+    </div>
+    <div class="oauth" align="center">
       <i class="iconfont icon-WechatIMG" style="font-size: 25px;"></i>
       <i class="iconfont icon-github"></i>
       <i class="iconfont icon-logo-weibo"></i>
@@ -38,8 +43,8 @@
       <i class="iconfont icon-zhifubao"></i>
     </div>
   </div>
-  <div class="copyright">
-    © 2018-2019 Zbin. All rights reserved.
+  <div class="copyright" align="center" style="color: white">
+    © 2019 Zbin. All Rights Reserved.
   </div>
 </div>
 <!--js逻辑-->

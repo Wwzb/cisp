@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class TestController {
 
 
-  @RequestMapping("/test")
+  @RequestMapping("/")
   public String test() {
     return "login";
   }
