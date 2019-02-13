@@ -1,0 +1,32 @@
+# 配置freemarker
+spring:
+  freemarker:
+    # 设置模板后缀名
+    suffix: .html
+    # 设置文档类型
+    content-type: text/html
+    # 设置页面编码格式
+    charset: UTF-8
+    # 设置页面缓存
+    cache: false
+    # 设置ftl文件路径
+    template-loader-path:
+      - classpath:/templates
+  # 设置静态文件路径，js,css等
+  mvc:
+    static-path-pattern: /static/**
+
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+  #配置数据源
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: WZB19960322
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.zbin.cisp.domain
