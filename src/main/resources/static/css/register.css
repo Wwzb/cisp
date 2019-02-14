@@ -64,3 +64,15 @@
   margin: 10px 10px 10px 10px;
   font-size: 13px;
 }
+
+.admin-login-box {
+  width: 300px;
+  height: 280px;
+  border: 1px dashed white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -150px;
+  margin-top: -150px;
+  border-radius: 5px;
+}

@@ -32,4 +32,9 @@ public class UserServiceImpl implements UserService {
   public Boolean isUsernameExsit(String username) {
     return userMapper.selectByUsername(username) != null;
   }
+
+  @Override
+  public User getUserByUsername(String username) {
+    return userMapper.selectByUsername(username);
+  }
 }

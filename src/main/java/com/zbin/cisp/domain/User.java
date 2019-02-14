@@ -9,6 +9,8 @@ public class User {
   private Integer id;
   private String username;
   private String password;
+  private String status;
+  private String type;
 
   public Integer getId() {
     return id;
@@ -32,5 +34,21 @@ public class User {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 }

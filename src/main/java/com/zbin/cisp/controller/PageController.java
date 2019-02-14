@@ -1,13 +1,7 @@
 package com.zbin.cisp.controller;
 
-import com.zbin.cisp.domain.User;
-import com.zbin.cisp.service.UserService;
-import com.zbin.cisp.utils.ReturnJson;
-import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by Zbin on 2019-02-13
@@ -15,38 +9,40 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class PageController {
 
-  @Resource
-  UserService userService;
-
   @RequestMapping("/")
   public String test() {
-    return "register";
+    return "backend/login";
   }
 
   @RequestMapping("/index")
   public String index() {
-    return "index";
+    return "frontend/index";
   }
 
   @RequestMapping("/login")
   public String login() {
-    return "login";
+    return "frontend/login";
   }
 
   @RequestMapping("/register")
   public String trys() {
-    return "register";
+    return "frontend/register";
   }
 
-  @RequestMapping("/doLogin")
-  @ResponseBody
-  public ReturnJson doLogin(@RequestBody User user) {
-    boolean isLogin = userService.loginCheck(user);
-    if (isLogin) {
-      return new ReturnJson(0, "登录成功", 0, "");
-    } else {
-      return new ReturnJson(1, "用户名或密码错误", 0, "");
-    }
+  @RequestMapping("/403")
+  public String error403() {
+    return "403";
   }
+
+  @RequestMapping("/404")
+  public String error404() {
+    return "404";
+  }
+
+  @RequestMapping("/500")
+  public String error500() {
+    return "500";
+  }
+
 
 }

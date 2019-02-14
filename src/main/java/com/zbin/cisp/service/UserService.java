@@ -20,4 +20,6 @@ public interface UserService {
    * 用户名校验
    */
   Boolean isUsernameExsit(String username);
+
+  User getUserByUsername(String username);
 }

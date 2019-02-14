@@ -90,16 +90,10 @@
                 location.href = '/login'
               }
             });
-          } else if (result.code == 2) {
-            layer.msg(result.msg, {
-              time: 1000
-            });
           } else {
             layer.msg(result.msg, {
               time: 1000
             });
-            var index = parent.layer.getFrameIndex(window.name);
-            // window.parent.location.reload();
             parent.layer.close();
           }
         }

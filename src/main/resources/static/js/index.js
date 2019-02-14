@@ -36,7 +36,7 @@ $('#subReg').click(function() {
         closeBtn: 1,
         offset: 'auto',
         area: ['400px', '400px'],
-        content: '/register.html',
+        content: '/login.html',
         scrolling: 'no'
 
     });

@@ -15,7 +15,8 @@ spring:
   # 设置静态文件路径，js,css等
   mvc:
     static-path-pattern: /static/**
-
+  resources:
+    static-locations: ["/templates/","/static/"]
   http:
     encoding:
       charset: utf-8
