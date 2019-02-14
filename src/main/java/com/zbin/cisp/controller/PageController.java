@@ -11,12 +11,12 @@ public class PageController {
 
   @RequestMapping("/")
   public String test() {
-    return "backend/login";
+    return "index";
   }
 
   @RequestMapping("/index")
   public String index() {
-    return "frontend/index";
+    return "index";
   }
 
   @RequestMapping("/login")
@@ -44,5 +44,8 @@ public class PageController {
     return "500";
   }
 
-
+  @RequestMapping("/admin")
+  public String admin() {
+    return "backend/login";
+  }
 }
