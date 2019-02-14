@@ -6,5 +6,18 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserService {
 
+  /**
+   * 登录校验
+   */
   Boolean loginCheck(User user);
+
+  /**
+   * 用户注册
+   */
+  void register(User user);
+
+  /**
+   * 用户名校验
+   */
+  Boolean isUsernameExsit(String username);
 }
