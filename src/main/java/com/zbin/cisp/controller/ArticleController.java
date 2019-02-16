@@ -72,8 +72,8 @@ public class ArticleController {
   @ResponseBody
   public ReturnJson add(HttpServletRequest request, @RequestBody Article article) {
     try {
-      Integer userId = (Integer) request.getSession().getAttribute("user");
-      article.setUserId(userId);
+      User user = (User) request.getSession().getAttribute("user");
+      article.setUserId(user.getId());
       articleService.create(article);
       return new ReturnJson(0, "发布成功");
     } catch (Exception e) {

@@ -6,4 +6,8 @@
       insert into article(title,content,user_id,create_time,category_id)
       values (#{title},#{content},#{userId},now(),#{categoryId})
   </insert>
+
+  <select id="getIndexArticles" resultType="com.zbin.cisp.domain.Article">
+
+  </select>
 </mapper>

@@ -46,30 +46,6 @@
     var form = layui.form;
     var $ = layui.jquery;
 
-    form.verify({
-      user: function (value, item) {
-        var Digital = /\d/;
-        var Letters = /[a-zA-Z]/;
-        if (!(Digital.test(value) && !Letters.test(value) && value.length == 11)) {
-          return '账号只能为11位数字!';
-        }
-      },
-      pwd: function (value, item) {
-        var Digital = /\d/;
-        var Letters = /[a-zA-Z]/;
-        if (!(Digital.test(value) && Letters.test(value) && value.length >= 0)) {
-          return '密码必须含有字母和数字!';
-        }
-      },
-      rePwd: function (value, item) {
-        var pwd = $("input[name='password']").val();
-        if (pwd != value) {
-          return '密码与确认密码不一致!';
-        }
-
-      }
-    });
-
     //监听提交
     form.on('submit(login)', function (data) {
       $.ajax({
@@ -81,7 +57,7 @@
           if (result.code == 0) {
             layer.msg('登录成功', {
               time: 2000, end: function () {
-                location.href = '/index'
+                location.href = '/admin/index'
               }
             });
           } else if (result.code == 2) {

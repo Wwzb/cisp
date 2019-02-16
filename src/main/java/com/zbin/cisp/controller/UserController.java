@@ -1,7 +1,5 @@
 package com.zbin.cisp.controller;
 
-import com.zbin.cisp.dao.ArticleMapper;
-import com.zbin.cisp.domain.Article;
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.UserService;
 import com.zbin.cisp.utils.PasswordUtil;
@@ -22,9 +20,6 @@ public class UserController {
   @Resource
   UserService userService;
 
-  @Resource
-  ArticleMapper articleMapper;
-
   @RequestMapping("/doRegister")
   @ResponseBody
   public ReturnJson doRegister(@RequestBody User user) {
@@ -44,7 +39,7 @@ public class UserController {
   public ReturnJson doLogin(HttpServletRequest request, @RequestBody User user) {
     User newUser = userService.loginCheck(user);
     if (newUser != null) {
-      request.getSession().setAttribute("user", newUser.getId());
+      request.getSession().setAttribute("user", newUser);
       request.getSession().setMaxInactiveInterval(1800);
       return new ReturnJson(0, "登录成功", 0, "");
     } else {
@@ -74,14 +69,4 @@ public class UserController {
     return "index";
   }
 
-  @RequestMapping("/sadd")
-  @ResponseBody
-  public ReturnJson gadd(HttpServletRequest request, @RequestBody Article article) {
-    try {
-      articleMapper.insert(article);
-      return new ReturnJson(0, "发布成功");
-    } catch (Exception e) {
-      return new ReturnJson(1, "发布失败");
-    }
-  }
 }

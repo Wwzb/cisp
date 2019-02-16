@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface ArticleMapper {
 
   void insert(Article article);
+
+  Article getIndexArticles();
 }

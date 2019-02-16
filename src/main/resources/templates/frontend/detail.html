@@ -6,27 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="keywords" content="fly,layui,前端社区">
   <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
-  <link rel="stylesheet" href="../../res/layui/css/layui.css">
-  <link rel="stylesheet" href="../../res/css/global.css">
+  <link rel="stylesheet" href="/static/res/layui/css/layui.css">
+  <link rel="stylesheet" href="/static/res/css/global.css">
 </head>
 <body>
 
 <div class="fly-header layui-bg-black">
   <div class="layui-container">
     <a class="fly-logo" href="/">
-      <img src="../../res/images/logo.png" alt="layui">
+      <img src="/static/res/images/logo3.png" alt="layui">
     </a>
-    <ul class="layui-nav fly-nav layui-hide-xs">
-      <li class="layui-nav-item layui-this">
-        <a href="/"><i class="iconfont icon-jiaoliu"></i>交流</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="../case/case.html"><i class="iconfont icon-iconmingxinganli"></i>案例</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="http://www.layui.com/" target="_blank"><i class="iconfont icon-ui"></i>框架</a>
-      </li>
-    </ul>
 
     <ul class="layui-nav fly-nav-user">
 
@@ -59,11 +48,11 @@
             src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
         </a>
         <dl class="layui-nav-child">
-          <dd><a href="../set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-          <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a>
+          <dd><a href="set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+          <dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a>
           </dd>
-          <dd><a href="../user/home.html"><i class="layui-icon"
-                                             style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
+          <dd><a href="user/home.html"><i class="layui-icon"
+                                          style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
           </dd>
           <hr style="margin: 5px 0;">
           <dd><a href="" style="text-align: center;">退出</a></dd>
@@ -89,18 +78,18 @@
 
         <!-- 用户登入后显示 -->
         <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a
-            href="../user/index.html">我发表的贴</a></li>
+            href="user/index.html">我发表的贴</a></li>
         <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a
-            href="../user/index.html#collection">我收藏的贴</a></li>
+            href="user/index.html#collection">我收藏的贴</a></li>
       </ul>
 
       <div class="fly-column-right layui-hide-xs">
         <span class="fly-search"><i class="layui-icon"></i></span>
-        <a href="../add.html" class="layui-btn">发表新帖</a>
+        <a href="add.html" class="layui-btn">发表新帖</a>
       </div>
       <div class="layui-hide-sm layui-show-xs-block"
            style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
-        <a href="../add.html" class="layui-btn">发表新帖</a>
+        <a href="add.html" class="layui-btn">发表新帖</a>
       </div>
     </div>
   </div>
@@ -138,13 +127,13 @@
           </span>
         </div>
         <div class="detail-about">
-          <a class="fly-avatar" href="../user/home.html">
+          <a class="fly-avatar" href="user/home.html">
             <img
               src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
               alt="贤心">
           </a>
           <div class="fly-detail-user">
-            <a href="../user/home.html" class="fly-link">
+            <a href="user/home.html" class="fly-link">
               <cite>贤心</cite>
               <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
               <i class="layui-badge fly-badge-vip">VIP3</i>
@@ -154,7 +143,7 @@
           <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
             <span style="padding-right: 10px; color: #FF7200">悬赏：60飞吻</span>
             <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a
-                href="../add.html">编辑此贴</a></span>
+                href="add.html">编辑此贴</a></span>
           </div>
         </div>
         <div class="detail-body photos">
@@ -379,7 +368,7 @@
   </p>
 </div>
 
-<script src="../../res/layui/layui.js"></script>
+<script src="/static/res/layui/layui.js"></script>
 <script>
   layui.cache.page = 'jie';
   layui.cache.user = {

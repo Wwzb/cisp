@@ -11,6 +11,8 @@ public class User {
   private String password;
   private String status;
   private String type;
+  private String nickname;
+
 
   public Integer getId() {
     return id;
@@ -50,5 +52,13 @@ public class User {
 
   public void setType(String type) {
     this.type = type;
+  }
+
+  public String getNickname() {
+    return nickname;
+  }
+
+  public void setNickname(String nickname) {
+    this.nickname = nickname;
   }
 }

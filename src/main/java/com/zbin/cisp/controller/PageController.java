@@ -63,4 +63,19 @@ public class PageController {
     request.getSession().setAttribute("category", list);
     return "frontend/add";
   }
+
+  @RequestMapping("/detail")
+  public String detail() {
+    return "frontend/detail";
+  }
+
+  @RequestMapping("/welcome")
+  public String welcome() {
+    return "backend/welcome";
+  }
+
+  @RequestMapping("/admin/index")
+  public String adminIndex() {
+    return "backend/index";
+  }
 }
