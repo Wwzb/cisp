@@ -1,5 +1,10 @@
 package com.zbin.cisp.controller;
 
+import com.zbin.cisp.domain.Category;
+import com.zbin.cisp.service.CategoryService;
+import java.util.List;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -8,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class PageController {
+
+  @Resource
+  CategoryService categoryService;
 
   @RequestMapping("/")
   public String test() {
@@ -47,5 +55,12 @@ public class PageController {
   @RequestMapping("/admin")
   public String admin() {
     return "backend/login";
+  }
+
+  @RequestMapping("/add")
+  public String add(HttpServletRequest request) {
+    List<Category> list = categoryService.getAllCategory();
+    request.getSession().setAttribute("category", list);
+    return "frontend/add";
   }
 }

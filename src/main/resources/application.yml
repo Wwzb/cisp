@@ -31,3 +31,6 @@ spring:
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: com.zbin.cisp.domain
+
+server:
+  port: 8080

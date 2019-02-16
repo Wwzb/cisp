@@ -3,7 +3,7 @@ package com.zbin.cisp.service.impl;
 import com.zbin.cisp.dao.UserMapper;
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.UserService;
-import com.zbin.cisp.utils.PwdCheck;
+import com.zbin.cisp.utils.PasswordUtil;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +17,19 @@ public class UserServiceImpl implements UserService {
   UserMapper userMapper;
 
   @Override
-  public Boolean loginCheck(User user) {
+  public User loginCheck(User user) {
     User tmpUser = userMapper.selectByUsername(user.getUsername());
-    return PwdCheck.validPwd(user.getPassword(), tmpUser.getPassword());
+    boolean isLogin = PasswordUtil.validPwd(user.getPassword(), tmpUser.getPassword());
+    if (isLogin) {
+      return tmpUser;
+    } else {
+      return null;
+    }
   }
 
   @Override
   public void register(User user) {
-    user.setPassword(PwdCheck.bryptPwd(user.getPassword()));
+    user.setPassword(PasswordUtil.bryptPwd(user.getPassword()));
     userMapper.insert(user);
   }
 

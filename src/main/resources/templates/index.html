@@ -19,35 +19,40 @@
 
     <ul class="layui-nav fly-nav-user">
 
-      <!-- 未登入的状态 -->
-      <li class="layui-nav-item">
-        <a class="iconfont icon-touxiang layui-hide-xs" href="/login"></a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="/login">登入</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="/register">注册</a>
-      </li>
-
       <!-- 登入后的状态 -->
-      <!--
-      <li class="layui-nav-item">
-        <a class="fly-nav-avatar" href="javascript:;">
-          <cite class="layui-hide-xs">贤心</cite>
-          <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
-          <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
-          <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
-        </a>
-        <dl class="layui-nav-child">
-          <dd><a href="user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-          <dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-          <dd><a href="user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
-          <hr style="margin: 5px 0;">
-          <dd><a href="/user/logout/" style="text-align: center;">退出</a></dd>
-        </dl>
-      </li>
-      -->
+      <#if Session['user']?exists>
+
+        <li class="layui-nav-item">
+          <a class="fly-nav-avatar" href="javascript:;">
+            <cite class="layui-hide-xs">Zbin</cite>
+            <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
+            <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
+            <img
+              src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a href="user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+            <dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a>
+            </dd>
+            <dd><a href="user/home.html"><i class="layui-icon"
+                                            style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
+            </dd>
+            <hr style="margin: 5px 0;">
+            <dd><a href="/logout" style="text-align: center;">退出</a></dd>
+          </dl>
+        </li>
+      <#else>
+        <!-- 未登入的状态 -->
+        <li class="layui-nav-item">
+          <a class="iconfont icon-touxiang layui-hide-xs" href="/login"></a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/login">登录</a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/register">注册</a>
+        </li>
+      </#if>
     </ul>
   </div>
 </div>
@@ -63,22 +68,22 @@
       <li><a href="jie/index.html">公告</a></li>
       <li><a href="jie/index.html">动态</a></li>
       <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span
-        class="fly-mid"></span></li>
+          class="fly-mid"></span></li>
 
       <!-- 用户登入后显示 -->
       <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html">我发表的信息</a>
       </li>
       <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a
-        href="user/index.html#collection">我收藏的内容</a></li>
+          href="user/index.html#collection">我收藏的内容</a></li>
     </ul>
 
     <div class="fly-column-right layui-hide-xs">
       <span class="fly-search"><i class="layui-icon"></i></span>
-      <a href="jie/add.html" class="layui-btn">我要发布</a>
+      <a href="/add" class="layui-btn">我要发布</a>
     </div>
     <div class="layui-hide-sm layui-show-xs-block"
          style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
-      <a href="jie/add.html" class="layui-btn">我要发布</a>
+      <a href="/add" class="layui-btn">我要发布</a>
     </div>
   </div>
 </div>
@@ -111,8 +116,6 @@
               </a>
               <span>刚刚</span>
 
-              <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i
-                class="iconfont icon-kiss"></i> 60</span>
               <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
               <span class="fly-list-nums"> 
                 <i class="iconfont icon-pinglun1" title="回答"></i> 66
@@ -166,8 +169,6 @@
               </a>
               <span>刚刚</span>
 
-              <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i
-                class="iconfont icon-kiss"></i> 60</span>
               <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
               <span class="fly-list-nums"> 
                 <i class="iconfont icon-pinglun1" title="回答"></i> 66
@@ -263,7 +264,7 @@
   <p>校内信息共享平台 &nbsp;&nbsp; Copyright&nbsp; &copy; 2019 Zbin</p>
 </div>
 
-<script src="../res/layui/layui.js"></script>
+<script src="/static/res/layui/layui.js"></script>
 <script>
   layui.cache.page = '';
   layui.cache.user = {
@@ -275,17 +276,17 @@
   };
   layui.config({
     version: "3.0.0"
-    , base: '../res/mods/' //这里实际使用时，建议改成绝对路径
+    , base: '/static/res/mods/'
   }).extend({
     fly: 'index'
   }).use('fly');
 </script>
 
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol)
-    ? " https://" : " http://");
-document.write(unescape(
-    "%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol
-    + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
+      ? " https://" : " http://");
+  document.write(unescape(
+      "%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol
+      + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
 
 </body>
 </html>

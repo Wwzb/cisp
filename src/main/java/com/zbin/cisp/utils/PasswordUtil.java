@@ -2,7 +2,7 @@ package com.zbin.cisp.utils;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class PwdCheck {
+public class PasswordUtil {
 
   /**
    * 加密密码

@@ -9,7 +9,7 @@ public interface UserService {
   /**
    * 登录校验
    */
-  Boolean loginCheck(User user);
+  User loginCheck(User user);
 
   /**
    * 用户注册

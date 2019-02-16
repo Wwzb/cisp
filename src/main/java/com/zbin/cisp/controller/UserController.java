@@ -2,9 +2,10 @@ package com.zbin.cisp.controller;
 
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.UserService;
-import com.zbin.cisp.utils.PwdCheck;
+import com.zbin.cisp.utils.PasswordUtil;
 import com.zbin.cisp.utils.ReturnJson;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,9 +36,10 @@ public class UserController {
 
   @RequestMapping("/doLogin")
   @ResponseBody
-  public ReturnJson doLogin(@RequestBody User user) {
-    boolean isLogin = userService.loginCheck(user);
-    if (isLogin) {
+  public ReturnJson doLogin(HttpServletRequest request, @RequestBody User user) {
+    User newUser = userService.loginCheck(user);
+    if (newUser != null) {
+      request.getSession().setAttribute("user", newUser.getId());
       return new ReturnJson(0, "登录成功", 0, "");
     } else {
       return new ReturnJson(1, "用户名或密码错误", 0, "");
@@ -51,12 +53,18 @@ public class UserController {
     if (tmpUser == null) {
       return new ReturnJson(1, "用户不存在!", 0, "");
     }
-    if (!PwdCheck.validPwd(user.getPassword(), tmpUser.getPassword())) {
+    if (!PasswordUtil.validPwd(user.getPassword(), tmpUser.getPassword())) {
       return new ReturnJson(1, "用户名或密码错误", 0, "");
     }
     if ("normal".equals(tmpUser.getType())) {
       return new ReturnJson(1, "该用户不是管理员!", 0, "");
     }
     return new ReturnJson(0, "登录成功", 0, "");
+  }
+
+  @RequestMapping("/logout")
+  public String logout(HttpServletRequest request) {
+    request.getSession().invalidate();
+    return "index";
   }
 }
