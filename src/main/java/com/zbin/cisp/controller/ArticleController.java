@@ -2,6 +2,7 @@ package com.zbin.cisp.controller;
 
 import com.zbin.cisp.domain.Article;
 import com.zbin.cisp.domain.User;
+import com.zbin.cisp.service.ArticleService;
 import com.zbin.cisp.utils.ReturnJson;
 import com.zbin.cisp.utils.UUIDUtil;
 import java.io.File;
@@ -10,6 +11,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/article")
 public class ArticleController {
+
+  @Resource
+  ArticleService articleService;
 
   @RequestMapping("/uploadImg")
   @ResponseBody
@@ -60,13 +65,19 @@ public class ArticleController {
     Map<String, String> imgMap = new HashMap<>();
     imgMap.put("src", "/static/upload/" + szDateFolder + "/" + szNewFileName);
     imgMap.put("title", szFileName);
-    return new ReturnJson(0, "上传成功", 0, imgMap);
+    return new ReturnJson("上传成功", imgMap);
   }
 
-  @RequestMapping("add")
+  @RequestMapping("/add")
   @ResponseBody
   public ReturnJson add(HttpServletRequest request, @RequestBody Article article) {
-    String a = article.getId();
-    return new ReturnJson(0, "发布成功", 0, null);
+    try {
+      Integer userId = (Integer) request.getSession().getAttribute("user");
+      article.setUserId(userId);
+      articleService.create(article);
+      return new ReturnJson(0, "发布成功");
+    } catch (Exception e) {
+      return new ReturnJson(1, "发布失败");
+    }
   }
 }

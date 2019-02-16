@@ -9,8 +9,8 @@ public class Article {
   private String id;
   private String title;
   private String content;
-  private String type;
-  private String user;
+  private Integer categoryId;
+  private Integer userId;
   private String addTime;
   private String updateTime;
   private Integer view;
@@ -41,20 +41,12 @@ public class Article {
     this.content = content;
   }
 
-  public String getType() {
-    return type;
+  public Integer getUserId() {
+    return userId;
   }
 
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  public String getUser() {
-    return user;
-  }
-
-  public void setUser(String user) {
-    this.user = user;
+  public void setUserId(Integer userId) {
+    this.userId = userId;
   }
 
   public String getAddTime() {
@@ -95,5 +87,13 @@ public class Article {
 
   public void setStatus(Integer status) {
     this.status = status;
+  }
+
+  public Integer getCategoryId() {
+    return categoryId;
+  }
+
+  public void setCategoryId(Integer categoryId) {
+    this.categoryId = categoryId;
   }
 }

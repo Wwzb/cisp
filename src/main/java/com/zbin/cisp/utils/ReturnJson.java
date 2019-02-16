@@ -2,10 +2,10 @@ package com.zbin.cisp.utils;
 
 public class ReturnJson {
 
-  protected Integer code;
-  protected String msg;
-  protected Integer count;
-  protected Object data;
+  private Integer code = 0;
+  private String msg;
+  private Integer count = 0;
+  private Object data;
 
   public Integer getCode() {
     return code;
@@ -44,6 +44,20 @@ public class ReturnJson {
     this.msg = msg;
     this.count = count;
     this.data = data;
+  }
+
+  public ReturnJson(String msg) {
+    this.msg = msg;
+  }
+
+  public ReturnJson(String msg, Object data) {
+    this.msg = msg;
+    this.data = data;
+  }
+
+  public ReturnJson(Integer code, String msg) {
+    this.msg = msg;
+    this.code = code;
   }
 
   @Override
