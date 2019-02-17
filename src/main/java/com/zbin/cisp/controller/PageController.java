@@ -34,12 +34,12 @@ public class PageController {
 
   @RequestMapping("/login")
   public String login() {
-    return "frontend/login";
+    return "frontend/user/login";
   }
 
   @RequestMapping("/register")
-  public String trys() {
-    return "frontend/register";
+  public String register() {
+    return "frontend/user/reg";
   }
 
   @RequestMapping("/403")
