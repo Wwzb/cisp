@@ -12,7 +12,10 @@ public class User {
   private String status;
   private String type;
   private String nickname;
-
+  private String gender;
+  private String regTime;
+  private String lastLoginTime;
+  private String signature;
 
   public Integer getId() {
     return id;
@@ -60,5 +63,37 @@ public class User {
 
   public void setNickname(String nickname) {
     this.nickname = nickname;
+  }
+
+  public String getGender() {
+    return gender;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
+
+  public String getRegTime() {
+    return regTime;
+  }
+
+  public void setRegTime(String regTime) {
+    this.regTime = regTime;
+  }
+
+  public String getLastLoginTime() {
+    return lastLoginTime;
+  }
+
+  public void setLastLoginTime(String lastLoginTime) {
+    this.lastLoginTime = lastLoginTime;
+  }
+
+  public String getSignature() {
+    return signature;
+  }
+
+  public void setSignature(String signature) {
+    this.signature = signature;
   }
 }

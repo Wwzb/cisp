@@ -1,7 +1,9 @@
 package com.zbin.cisp.controller;
 
 import com.zbin.cisp.domain.Category;
+import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.CategoryService;
+import com.zbin.cisp.service.UserService;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,9 @@ public class PageController {
 
   @Resource
   CategoryService categoryService;
+
+  @Resource
+  UserService userService;
 
   @RequestMapping("/")
   public String test() {
@@ -70,12 +75,28 @@ public class PageController {
   }
 
   @RequestMapping("/welcome")
-  public String welcome() {
+  public String welcome(HttpServletRequest request) {
+    int userCount = userService.countAll();
+    request.getSession().setAttribute("userCount", userCount);
     return "backend/welcome";
   }
 
   @RequestMapping("/admin/index")
   public String adminIndex() {
     return "backend/index";
+  }
+
+  @RequestMapping("/admin/userManager")
+  public String userManager(HttpServletRequest request) {
+    int userCount = userService.countAll();
+    List<User> userList = userService.getUsers();
+    request.getSession().setAttribute("userCount", userCount);
+    request.getSession().setAttribute("userList", userList);
+    return "backend/member/userManager";
+  }
+
+  @RequestMapping("/user/set")
+  public String userSet() {
+    return "frontend/user/set";
   }
 }

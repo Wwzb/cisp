@@ -69,4 +69,15 @@ public class UserController {
     return "index";
   }
 
+  @RequestMapping("/user/update")
+  @ResponseBody
+  public ReturnJson userUpdate(HttpServletRequest request, @RequestBody User user) {
+    try {
+      userService.updateUser(user);
+      return new ReturnJson("修改成功");
+    } catch (Exception e) {
+      return new ReturnJson("修改失败");
+    }
+
+  }
 }

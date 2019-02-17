@@ -1,6 +1,7 @@
 package com.zbin.cisp.service;
 
 import com.zbin.cisp.domain.User;
+import java.util.List;
 
 public interface UserService {
 
@@ -20,4 +21,10 @@ public interface UserService {
   Boolean isUsernameExsit(String username);
 
   User getUserByUsername(String username);
+
+  int countAll();
+
+  List<User> getUsers();
+
+  void updateUser(User user);
 }

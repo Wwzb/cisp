@@ -38,7 +38,8 @@ public class AuthFilter implements Filter {
     HttpServletResponse response = (HttpServletResponse) servletResponse;
     HttpSession session = request.getSession(false);
     String uri = request.getRequestURI();
-    boolean needFilter = isNeedFilter(uri);
+//    boolean needFilter = isNeedFilter(uri);
+    boolean needFilter = false;
     if (!needFilter) {
       filterChain.doFilter(servletRequest, servletResponse);
     } else {

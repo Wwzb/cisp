@@ -4,6 +4,7 @@ import com.zbin.cisp.dao.UserMapper;
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.UserService;
 import com.zbin.cisp.utils.PasswordUtil;
+import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +42,20 @@ public class UserServiceImpl implements UserService {
   @Override
   public User getUserByUsername(String username) {
     return userMapper.selectByUsername(username);
+  }
+
+  @Override
+  public int countAll() {
+    return userMapper.countAll();
+  }
+
+  @Override
+  public List<User> getUsers() {
+    return userMapper.getUsers();
+  }
+
+  @Override
+  public void updateUser(User user) {
+    userMapper.updateUser(user);
   }
 }
