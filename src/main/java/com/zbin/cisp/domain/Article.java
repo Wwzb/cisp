@@ -11,7 +11,7 @@ public class Article {
   private String content;
   private Integer categoryId;
   private Integer userId;
-  private String addTime;
+  private String createTime;
   private String updateTime;
   private Integer view;
   private Integer star;
@@ -47,14 +47,6 @@ public class Article {
 
   public void setUserId(Integer userId) {
     this.userId = userId;
-  }
-
-  public String getAddTime() {
-    return addTime;
-  }
-
-  public void setAddTime(String addTime) {
-    this.addTime = addTime;
   }
 
   public String getUpdateTime() {
@@ -95,5 +87,13 @@ public class Article {
 
   public void setCategoryId(Integer categoryId) {
     this.categoryId = categoryId;
+  }
+
+  public String getCreateTime() {
+    return createTime;
+  }
+
+  public void setCreateTime(String createTime) {
+    this.createTime = createTime;
   }
 }

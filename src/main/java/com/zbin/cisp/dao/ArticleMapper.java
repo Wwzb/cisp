@@ -1,6 +1,8 @@
 package com.zbin.cisp.dao;
 
 import com.zbin.cisp.domain.Article;
+import com.zbin.cisp.vo.ArticleVO;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +15,7 @@ public interface ArticleMapper {
 
   void insert(Article article);
 
-  Article getIndexArticles();
+  List<ArticleVO> getIndexArticles();
+
+  ArticleVO getArticleById(Integer id);
 }

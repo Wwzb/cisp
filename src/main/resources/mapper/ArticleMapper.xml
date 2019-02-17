@@ -7,7 +7,16 @@
       values (#{title},#{content},#{userId},now(),#{categoryId})
   </insert>
 
-  <select id="getIndexArticles" resultType="com.zbin.cisp.domain.Article">
+  <select id="getIndexArticles" resultType="com.zbin.cisp.vo.ArticleVO">
+    select article.*, user.nickname, category.name as category from article
+    inner join category on article.category_id = category.id
+    inner join `user` on `user`.id = article.user_id;
+  </select>
 
+  <select id="getArticleById" resultType="com.zbin.cisp.vo.ArticleVO">
+    select article.*, user.nickname,user.signature, category.name as category from article
+    inner join category on article.category_id = category.id
+    inner join `user` on `user`.id = article.user_id
+    where article.id = #{id};
   </select>
 </mapper>

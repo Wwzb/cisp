@@ -29,7 +29,7 @@
               src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
           </a>
           <dl class="layui-nav-child">
-            <dd><a href="user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+            <dd><a href="/user/set"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
             <dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a>
             </dd>
             <dd><a href="user/home.html"><i class="layui-icon"
@@ -69,7 +69,7 @@
           class="fly-mid"></span></li>
 
       <!-- 用户登入后显示 -->
-      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html">我发表的信息</a>
+      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html">我发布的信息</a>
       </li>
       <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a
           href="user/index.html#collection">我收藏的内容</a></li>
@@ -108,20 +108,16 @@
             </h2>
             <div class="fly-list-info">
               <a href="user/home.html" link>
-                <cite>${user.nickname}</cite>
+                <cite>Zbin</cite>
               </a>
               <span>刚刚</span>
 
-              <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
-              <span class="fly-list-nums"> 
-                <i class="iconfont icon-pinglun1" title="回答"></i> 66
+              <span class="fly-list-nums">
+                <i class="iconfont icon-pinglun1" title="评论"></i> 66
               </span>
             </div>
             <div class="fly-list-badge">
-              <!--
               <span class="layui-badge layui-bg-black">置顶</span>
-              <span class="layui-badge layui-bg-red">精帖</span>
-              -->
             </div>
           </li>
         </ul>
@@ -130,48 +126,43 @@
       <div class="fly-panel" style="margin-bottom: 0;">
 
         <div class="fly-panel-title fly-filter">
-          <a href="" class="layui-this">综合</a>
-          <span class="fly-mid"></span>
-          <a href="">未结</a>
-          <span class="fly-mid"></span>
-          <a href="">已结</a>
-          <span class="fly-mid"></span>
-          <a href="">精华</a>
+          <a href="" class="layui-this">帖子列表</a>
           <span class="fly-filter-right layui-hide-xs">
             <a href="" class="layui-this">按最新</a>
             <span class="fly-mid"></span>
             <a href="">按热议</a>
           </span>
         </div>
+        <#if articleList??>
+          <#list articleList as article>
+            <ul class="fly-list">
+              <li>
+                <a href="user/home.html" class="fly-avatar">
+                  <img
+                    src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+                    alt="Zbin">
+                </a>
+                <h2>
+                  <a class="layui-badge">${article.category}</a>
+                  <a href="/article/${article.id}">${article.title!}</a>
+                </h2>
+                <div class="fly-list-info">
+                  <a href="user/home.html" link>
+                    <cite>${article.nickname}</cite>
+                  </a>
+                  <span>${article.createTime}</span>
 
-        <ul class="fly-list">
-          <li>
-            <a href="user/home.html" class="fly-avatar">
-              <img
-                src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
-                alt="Zbin">
-            </a>
-            <h2>
-              <a class="layui-badge">分享</a>
-              <a href="jie/detail.html">这是一条测试数据</a>
-            </h2>
-            <div class="fly-list-info">
-              <a href="user/home.html" link>
-                <cite>${user.nickname}</cite>
-              </a>
-              <span>刚刚</span>
-
-              <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
-              <span class="fly-list-nums"> 
-                <i class="iconfont icon-pinglun1" title="回答"></i> 66
+                  <span class="fly-list-nums">
+                <i class="iconfont icon-pinglun1" title="评论"></i> 66
               </span>
-            </div>
-            <div class="fly-list-badge">
-              <!--<span class="layui-badge layui-bg-red">精帖</span>-->
-            </div>
-          </li>
+                </div>
+              </li>
+            </ul>
+          </#list>
+        <#else>
+          <div class="fly-none">暂时没有数据</div>
+        </#if>
 
-        </ul>
         <div style="text-align: center">
           <div class="laypage-main">
             <a href="jie/index.html" class="laypage-next">更多求解</a>
@@ -239,7 +230,6 @@
 
 <script src="/static/res/layui/layui.js"></script>
 <script>
-  layui.cache.page = '';
   layui.config({
     version: "3.0.0"
     , base: '/static/res/mods/'

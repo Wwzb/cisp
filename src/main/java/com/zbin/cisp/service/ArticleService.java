@@ -1,6 +1,8 @@
 package com.zbin.cisp.service;
 
 import com.zbin.cisp.domain.Article;
+import com.zbin.cisp.vo.ArticleVO;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,4 +12,8 @@ import org.springframework.stereotype.Service;
 public interface ArticleService {
 
   void create(Article article);
+
+  List<ArticleVO> getIndexArticles();
+
+  ArticleVO getArticleById(Integer id);
 }

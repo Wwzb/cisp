@@ -2,12 +2,16 @@ package com.zbin.cisp.controller;
 
 import com.zbin.cisp.domain.Category;
 import com.zbin.cisp.domain.User;
+import com.zbin.cisp.service.ArticleService;
 import com.zbin.cisp.service.CategoryService;
 import com.zbin.cisp.service.UserService;
+import com.zbin.cisp.vo.ArticleVO;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -22,13 +26,18 @@ public class PageController {
   @Resource
   UserService userService;
 
+  @Resource
+  ArticleService articleService;
+
   @RequestMapping("/")
-  public String test() {
-    return "index";
+  public void test(HttpServletResponse response) throws Exception {
+    response.sendRedirect("/index");
   }
 
   @RequestMapping("/index")
-  public String index() {
+  public String index(HttpServletRequest request) {
+    List<ArticleVO> articleList = articleService.getIndexArticles();
+    request.getSession().setAttribute("articleList", articleList);
     return "index";
   }
 
@@ -66,7 +75,7 @@ public class PageController {
   public String add(HttpServletRequest request) {
     List<Category> list = categoryService.getAllCategory();
     request.getSession().setAttribute("category", list);
-    return "frontend/add";
+    return "frontend/article/add";
   }
 
   @RequestMapping("/detail")
@@ -98,5 +107,12 @@ public class PageController {
   @RequestMapping("/user/set")
   public String userSet() {
     return "frontend/user/set";
+  }
+
+  @RequestMapping("/article/{id}")
+  public String articleDeatil(HttpServletRequest request, @PathVariable(value = "id") Integer id) {
+    ArticleVO articleVO = articleService.getArticleById(id);
+    request.getSession().setAttribute("article", articleVO);
+    return "/frontend/article/detail";
   }
 }
