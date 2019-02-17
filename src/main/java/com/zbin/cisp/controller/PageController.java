@@ -1,5 +1,6 @@
 package com.zbin.cisp.controller;
 
+import com.zbin.cisp.domain.Article;
 import com.zbin.cisp.domain.Category;
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.ArticleService;
@@ -114,5 +115,13 @@ public class PageController {
     ArticleVO articleVO = articleService.getArticleById(id);
     request.getSession().setAttribute("article", articleVO);
     return "/frontend/article/detail";
+  }
+
+  @RequestMapping("/user/center")
+  public String userCenter(HttpServletRequest request) {
+    User user = (User) request.getSession().getAttribute("user");
+    List<Article> myArticles = articleService.getArticlesByUserId(user.getId());
+    request.getSession().setAttribute("myArticles", myArticles);
+    return "frontend/user/center";
   }
 }

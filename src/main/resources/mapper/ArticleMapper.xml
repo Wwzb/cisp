@@ -19,4 +19,8 @@
     inner join `user` on `user`.id = article.user_id
     where article.id = #{id};
   </select>
+
+  <select id="getAticlesByUserId" resultType="com.zbin.cisp.domain.Article">
+    select * from article where user_id = #{userId}
+  </select>
 </mapper>

@@ -18,4 +18,6 @@ public interface ArticleMapper {
   List<ArticleVO> getIndexArticles();
 
   ArticleVO getArticleById(Integer id);
+
+  List<Article> getAticlesByUserId(Integer userId);
 }

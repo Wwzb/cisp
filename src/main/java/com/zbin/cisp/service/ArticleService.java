@@ -16,4 +16,6 @@ public interface ArticleService {
   List<ArticleVO> getIndexArticles();
 
   ArticleVO getArticleById(Integer id);
+
+  List<Article> getArticlesByUserId(Integer userId);
 }

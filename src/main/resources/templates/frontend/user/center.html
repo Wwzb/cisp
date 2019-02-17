@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>用户中心</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="校内信息共享平台">
+  <meta name="description" content="一个提供给大学生的校内信息共享平台">
+  <link rel="stylesheet" href="/static/res/layui/css/layui.css">
+  <link rel="stylesheet" href="/static/res/css/global.css">
+</head>
+<body>
+
+<div class="fly-header layui-bg-black">
+  <div class="layui-container">
+    <a class="fly-logo" href="/">
+      <img src="/static/res/images/logo.png" alt="layui">
+    </a>
+
+    <ul class="layui-nav fly-nav-user">
+
+      <!-- 登入后的状态 -->
+      <#if Session['user']?exists>
+
+        <li class="layui-nav-item">
+          <a class="fly-nav-avatar" href="javascript:;">
+            <cite class="layui-hide-xs">${user.nickname}</cite>
+            <img
+              src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a href="/user/set"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+            <dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a>
+            </dd>
+            <dd><a href="user/home.html"><i class="layui-icon"
+                                            style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
+            </dd>
+            <hr style="margin: 5px 0;">
+            <dd><a href="/logout" style="text-align: center;">退出</a></dd>
+          </dl>
+        </li>
+      <#else>
+        <!-- 未登入的状态 -->
+        <li class="layui-nav-item">
+          <a class="iconfont icon-touxiang layui-hide-xs" href="/login"></a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/login">登录</a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/register">注册</a>
+        </li>
+      </#if>
+    </ul>
+  </div>
+</div>
+
+<div class="layui-container fly-marginTop fly-user-main">
+  <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
+    <li class="layui-nav-item">
+      <a href="home.html">
+        <i class="layui-icon">&#xe609;</i>
+        我的主页
+      </a>
+    </li>
+    <li class="layui-nav-item layui-this">
+      <a href="/user/center">
+        <i class="layui-icon">&#xe612;</i>
+        用户中心
+      </a>
+    </li>
+    <li class="layui-nav-item">
+      <a href="/user/set">
+        <i class="layui-icon">&#xe620;</i>
+        基本设置
+      </a>
+    </li>
+    <li class="layui-nav-item">
+      <a href="message.html">
+        <i class="layui-icon">&#xe611;</i>
+        我的消息
+      </a>
+    </li>
+  </ul>
+
+  <div class="site-tree-mobile layui-hide">
+    <i class="layui-icon">&#xe602;</i>
+  </div>
+  <div class="site-mobile-shade"></div>
+
+  <div class="site-tree-mobile layui-hide">
+    <i class="layui-icon">&#xe602;</i>
+  </div>
+  <div class="site-mobile-shade"></div>
+
+
+  <div class="fly-panel fly-panel-user" pad20>
+    <div class="layui-tab layui-tab-brief" lay-filter="user">
+      <ul class="layui-tab-title" id="LAY_mine">
+        <li data-type="mine-jie" lay-id="index" class="layui-this">我发的帖（<span>${myArticles?size}</span>）</li>
+        <li data-type="collection" data-url="/collection/find/" lay-id="collection">
+          我收藏的帖（<span>16</span>）
+        </li>
+      </ul>
+      <div class="layui-tab-content" style="padding: 20px 0;">
+        <div class="layui-tab-item layui-show">
+          <ul class="mine-view jie-row">
+            <#if myArticles??>
+              <#list myArticles as article>
+                <li>
+                  <a class="jie-title" href="/article/${article.id}" target="_blank">${article.title}</a>
+                  <i>${article.createTime}</i>
+                  <a class="mine-edit" href="/jie/edit/8116">编辑</a>
+                  <em>661阅/10答</em>
+                </li>
+              </#list>
+            <#else>
+              暂无数据
+            </#if>
+          </ul>
+          <div id="LAY_page"></div>
+        </div>
+
+        <div class="layui-tab-item">
+          <ul class="mine-view jie-row">
+            <li>
+              <a class="jie-title" href="../article/detail.html" target="_blank">基于 layui
+                的极简社区页面模版</a>
+              <i>收藏于23小时前</i></li>
+          </ul>
+          <div id="LAY_page1"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fly-footer">
+  <p>校内信息共享平台 &nbsp;&nbsp; Copyright&nbsp; &copy; 2019 Zbin</p>
+</div>
+
+<script src="/static/res/layui/layui.js"></script>
+<script>
+  layui.config({
+    version: "3.0.0"
+    , base: '/static/res/mods/'
+  }).extend({
+    fly: 'index'
+  }).use('fly');
+</script>
+
+</body>
+</html>
