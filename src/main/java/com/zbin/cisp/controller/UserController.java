@@ -2,14 +2,19 @@ package com.zbin.cisp.controller;
 
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.UserService;
+import com.zbin.cisp.utils.FileUtil;
 import com.zbin.cisp.utils.PasswordUtil;
 import com.zbin.cisp.utils.ReturnJson;
+import java.util.HashMap;
+import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Created by Zbin on 2019-02-14
@@ -74,10 +79,40 @@ public class UserController {
   public ReturnJson userUpdate(HttpServletRequest request, @RequestBody User user) {
     try {
       userService.updateUser(user);
+      request.getSession().setAttribute("user", userService.getUserByUsername(user.getUsername()));
       return new ReturnJson("修改成功");
     } catch (Exception e) {
       return new ReturnJson("修改失败");
     }
+  }
 
+  @RequestMapping("/user/setAvatar")
+  @ResponseBody
+  public ReturnJson userSetAvatar(HttpServletRequest request, MultipartFile file) {
+    try {
+      String imgUrl = FileUtil.upload(file);
+      User user = (User) request.getSession().getAttribute("user");
+      user.setAvatar(imgUrl);
+      userService.updateUser(user);
+      request.getSession().setAttribute("user", userService.getUserByUsername(user.getUsername()));
+      Map<String, String> imgMap = new HashMap<>();
+      imgMap.put("src", imgUrl);
+      imgMap.put("title", file.getOriginalFilename());
+      return new ReturnJson("设置成功", imgMap);
+    } catch (Exception e) {
+      return new ReturnJson("上传失败");
+    }
+
+  }
+
+  @RequestMapping("/user/changePwd")
+  @ResponseBody
+  public ReturnJson userChangePwd(HttpServletRequest request, @RequestParam String oldPass,
+    @RequestParam String newPass) {
+    try {
+      return new ReturnJson("修改成功");
+    } catch (Exception e) {
+      return new ReturnJson("修改失败");
+    }
   }
 }

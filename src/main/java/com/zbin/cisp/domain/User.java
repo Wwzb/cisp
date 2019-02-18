@@ -16,6 +16,7 @@ public class User {
   private String regTime;
   private String lastLoginTime;
   private String signature;
+  private String avatar;
 
   public Integer getId() {
     return id;
@@ -95,5 +96,13 @@ public class User {
 
   public void setSignature(String signature) {
     this.signature = signature;
+  }
+
+  public String getAvatar() {
+    return avatar;
+  }
+
+  public void setAvatar(String avatar) {
+    this.avatar = avatar;
   }
 }

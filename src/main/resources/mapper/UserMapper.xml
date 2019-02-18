@@ -20,10 +20,21 @@
   </select>
 
   <update id="updateUser" parameterType="com.zbin.cisp.domain.User">
-    update user set
-    nickname = #{nickname},
-    gender = #{gender},
-    signature= #{signature}
+    update user
+    <set>
+      <if test="nickname != null">
+        nickname = #{nickname},
+      </if>
+      <if test="gender != null">
+        gender = #{gender},
+      </if>
+      <if test="signature != null">
+        signature= #{signature},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar},
+      </if>
+    </set>
     where username = #{username}
   </update>
 </mapper>
