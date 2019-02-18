@@ -3,12 +3,8 @@ package com.zbin.cisp.controller;
 import com.zbin.cisp.domain.Article;
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.ArticleService;
+import com.zbin.cisp.utils.FileUtil;
 import com.zbin.cisp.utils.ReturnJson;
-import com.zbin.cisp.utils.UUIDUtil;
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Resource;
@@ -32,39 +28,10 @@ public class ArticleController {
   @RequestMapping("/uploadImg")
   @ResponseBody
   public ReturnJson upload(HttpServletRequest request, MultipartFile file) {
-    String szFileName = file.getOriginalFilename();
-    String szDateFolder = "";
-    String szNewFileName = "";
-    String szFilePath;
-    String fileType = "jpg,gif,png,bmp,jpeg";
-    String ext;
-    try {
-      if (szFileName != null && szFileName.length() > 0) {
-        Date date = new Date();
-        szDateFolder = new SimpleDateFormat("yyyy/MM").format(date);
-        szFilePath =
-          "/Users/admin/Documents/myworkspace/cisp/src/main/resources/static/upload/"
-            + szDateFolder;
-        File f = new File(szFilePath);
-        ext = szFileName.substring(szFileName.lastIndexOf(".") + 1).toLowerCase().trim();
-        if (!Arrays.asList(fileType.split(",")).contains(ext)) {
-          return new ReturnJson(1, "上传格式不正确,请上传后缀为[.jpg,.gif,.png,.bmp,.jpeg]", 0, "");
-        }
-        if (!f.exists()) {
-          boolean result = f.mkdirs();
-        }
-        szNewFileName = UUIDUtil.getUUID() + szFileName.substring(szFileName.lastIndexOf("."));
-        File newFile = new File(szFilePath + "//" + szNewFileName);
-        file.transferTo(newFile);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    User user = new User();
-    user.setId((Integer) request.getSession().getAttribute("user"));
+    String imgUrl = FileUtil.upload(file);
     Map<String, String> imgMap = new HashMap<>();
-    imgMap.put("src", "/static/upload/" + szDateFolder + "/" + szNewFileName);
-    imgMap.put("title", szFileName);
+    imgMap.put("src", imgUrl);
+    imgMap.put("title", file.getOriginalFilename());
     return new ReturnJson("上传成功", imgMap);
   }
 

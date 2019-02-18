@@ -1,7 +1,6 @@
 package com.zbin.cisp.utils;
 
 import com.google.gson.Gson;
-import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
@@ -11,6 +10,8 @@ import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import java.io.File;
 import java.util.UUID;
+import org.apache.commons.io.FileUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Created by Zbin on 2019-02-18
@@ -26,8 +27,14 @@ public class FileUtil {
 
   private static final String bucket = "cisp";
 
-  public static String upload(File file) {
+  public static String upload(MultipartFile originFile) {
     try {
+      String filename = "";
+      if (originFile.getOriginalFilename() != null) {
+        filename = originFile.getOriginalFilename();
+      }
+      File file = new File(filename);
+      FileUtils.copyInputStreamToFile(originFile.getInputStream(), file);
       UploadManager uploadManager = getUploadManager();
 
       String token = getToken();
@@ -36,7 +43,7 @@ public class FileUtil {
       //解析上传成功的结果
       DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
       return prefixUrl + putRet.key;
-    } catch (QiniuException e) {
+    } catch (Exception e) {
       e.printStackTrace();
       return null;
     }
