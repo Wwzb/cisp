@@ -1,6 +1,5 @@
 package com.zbin.cisp.controller;
 
-import com.zbin.cisp.domain.Article;
 import com.zbin.cisp.domain.Category;
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.ArticleService;
@@ -132,7 +131,10 @@ public class PageController {
   @RequestMapping("/user/center")
   public String userCenter(HttpServletRequest request) {
     User user = (User) request.getSession().getAttribute("user");
-    List<Article> myArticles = articleService.getArticlesByUserId(user.getId());
+    List<ArticleVO> myArticles = articleService.getArticlesByUserId(user.getId());
+    for (ArticleVO articleVO : myArticles) {
+      articleVO.setCommentCount(commentService.getCommentByArticleId(articleVO.getId()).size());
+    }
     request.getSession().setAttribute("myArticles", myArticles);
     return "frontend/user/center";
   }

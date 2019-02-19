@@ -20,7 +20,7 @@
     where article.id = #{id};
   </select>
 
-  <select id="getAticlesByUserId" resultType="com.zbin.cisp.domain.Article">
+  <select id="getAticlesByUserId" resultType="com.zbin.cisp.vo.ArticleVO">
     select * from article where user_id = #{userId} order by create_time desc;
   </select>
 

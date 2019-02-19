@@ -11,6 +11,7 @@ public class ArticleVO extends Article {
   private String nickname;
   private String category;
   private String signature;
+  private Integer commentCount;
 
   public String getNickname() {
     return nickname;
@@ -34,5 +35,13 @@ public class ArticleVO extends Article {
 
   public void setSignature(String signature) {
     this.signature = signature;
+  }
+
+  public Integer getCommentCount() {
+    return commentCount;
+  }
+
+  public void setCommentCount(Integer commentCount) {
+    this.commentCount = commentCount;
   }
 }

@@ -33,7 +33,7 @@ public class ArticleServiceImpl implements ArticleService {
   }
 
   @Override
-  public List<Article> getArticlesByUserId(Integer userId) {
+  public List<ArticleVO> getArticlesByUserId(Integer userId) {
     return articleMapper.getAticlesByUserId(userId);
   }
 
