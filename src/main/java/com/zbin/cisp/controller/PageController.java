@@ -124,4 +124,9 @@ public class PageController {
     request.getSession().setAttribute("myArticles", myArticles);
     return "frontend/user/center";
   }
+
+  @RequestMapping("/notice")
+  public String notice() {
+    return "/notice";
+  }
 }
