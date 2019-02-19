@@ -42,6 +42,9 @@ public class PageController {
   @RequestMapping("/index")
   public String index(HttpServletRequest request) {
     List<ArticleVO> articleList = articleService.getIndexArticles();
+    for (ArticleVO articleVO : articleList) {
+      articleVO.setCommentCount(commentService.getCommentByArticleId(articleVO.getId()).size());
+    }
     request.getSession().setAttribute("articleList", articleList);
     return "index";
   }
@@ -166,5 +169,17 @@ public class PageController {
   @RequestMapping("/admin/article/category/edit")
   public String editCategory(HttpServletRequest request) {
     return "/backend/article/category-edit";
+  }
+
+  @RequestMapping("/user/{id}")
+  public String userHome(HttpServletRequest request, @PathVariable(value = "id") Integer id) {
+    request.getSession().removeAttribute("commentVOList");
+    ArticleVO articleVO = articleService.getArticleById(id);
+    List<CommentVO> commentVOList = commentService.getCommentByArticleId(id);
+    request.getSession().setAttribute("article", articleVO);
+    if (commentVOList.size() != 0) {
+      request.getSession().setAttribute("commentVOList", commentVOList);
+    }
+    return "/frontend/user/home";
   }
 }

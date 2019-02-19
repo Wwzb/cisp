@@ -30,7 +30,7 @@
           </a>
           <dl class="layui-nav-child">
             <dd><a href="/user/set"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-            <dd><a href="user/home.html"><i class="layui-icon"
+            <dd><a href="/user/${user.id}"><i class="layui-icon"
                                             style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
             </dd>
             <hr style="margin: 5px 0;">
@@ -57,12 +57,12 @@
   <div class="layui-container">
     <ul class="layui-clear">
       <li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
-      <li><a href="jie/index.html">个人中心</a></li>
+      <li><a href="/user/${user.id}">个人中心</a></li>
       <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span
           class="fly-mid"></span></li>
 
       <!-- 用户登入后显示 -->
-      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html">我发布的信息</a>
+      <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="/user/center">我发布的信息</a>
       </li>
     </ul>
 
@@ -112,10 +112,33 @@
         </ul>
       </div>
 
+      <div class="fly-panel" style="margin-bottom: 10px;">
+      <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+        <div class="layui-tab-item layui-show">
+          <form action="" method="post">
+            <div class="layui-row layui-col-space15 layui-form-item">
+              <div class="layui-col-md3">
+                <label class="layui-form-label">选择分类</label>
+                <div class="layui-input-block">
+                  <select lay-verify="required" name="categoryId" lay-filter="column">
+                    <option></option>
+                    <#if category??>
+                      <#list category as c>
+                        <option value="${c.id}">${c.name}</option>
+                      </#list>
+                    </#if>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+</div>
       <div class="fly-panel" style="margin-bottom: 0;">
 
         <div class="fly-panel-title fly-filter">
-          <a href="" class="layui-this">帖子列表</a>
+            <a href="" class="layui-this">帖子列表</a>
           <span class="fly-filter-right layui-hide-xs">
             <a href="" class="layui-this">按最新</a>
             <span class="fly-mid"></span>
@@ -142,7 +165,7 @@
                   <span>${article.createTime}</span>
 
                   <span class="fly-list-nums">
-                <i class="iconfont icon-pinglun1" title="评论"></i> 66
+                <i class="iconfont icon-pinglun1" title="评论"></i> ${article.commentCount!}
               </span>
                 </div>
               </li>
@@ -169,6 +192,22 @@
 
 <script src="/static/res/layui/layui.js"></script>
 <script>
+layui.use(['layer', 'form'], function(){
+    var layer = layui.layer
+        ,form = layui.form
+        ,$ = layui.jquery;
+    form.on('select(column)', function(data){
+      $.ajax({
+        type: 'POST',
+        url: '/shopInfo/findCity',
+        data: JSON.stringify(data.field),
+        dataType:  'json',
+        success: function(res){
+        }
+      });
+    });
+
+  });
   layui.config({
     version: "3.0.0"
     , base: '/static/res/mods/'

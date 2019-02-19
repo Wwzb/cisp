@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -69,7 +70,7 @@ public class UserController {
     return new ReturnJson(0, "登录成功", 0, "");
   }
 
-  @PostMapping("/logout")
+  @RequestMapping("/logout")
   public String logout(HttpServletRequest request) {
     request.getSession().invalidate();
     return "index";
