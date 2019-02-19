@@ -42,7 +42,10 @@ public class FileUtil {
 
       //解析上传成功的结果
       DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
-      return prefixUrl + putRet.key;
+      if (file.delete()) {
+        return prefixUrl + putRet.key;
+      }
+      return null;
     } catch (Exception e) {
       e.printStackTrace();
       return null;

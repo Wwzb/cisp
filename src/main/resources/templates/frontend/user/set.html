@@ -104,7 +104,6 @@
       <div class="layui-tab-content" style="padding: 20px 0;">
 
         <div class="layui-form layui-form-pane layui-tab-item layui-show">
-          <form method="post">
             <div class="layui-form-item">
               <label for="L_email" class="layui-form-label">账号</label>
               <div class="layui-input-inline">
@@ -139,9 +138,8 @@
             </div>
 
             <div class="layui-form-item">
-              <button class="layui-btn" key="set-mine" lay-filter="post" lay-submit>确认修改</button>
+              <button class="layui-btn layui-btn-normal" key="set-mine" lay-filter="post" lay-submit>确认修改</button>
             </div>
-
         </div>
 
         <div class="layui-form layui-form-pane layui-tab-item">
@@ -163,7 +161,7 @@
           <div class="layui-form-item">
             <label class="layui-form-label">旧密码</label>
             <div class="layui-input-inline">
-              <input type="password" name="oldPass" required placeholder="请输入当前密码"
+              <input type="password" name="oldPwd" required placeholder="请输入当前密码"
                      class="layui-input"
                      autocomplete="off" lay-verify="required"/>
             </div>
@@ -183,13 +181,13 @@
           <div class="layui-form-item">
             <label for="L_repass" class="layui-form-label">确认密码</label>
             <div class="layui-input-inline">
-              <input type="password" id="L_repass" name="newPass" required=""
+              <input type="password" id="L_repass" name="newPwd" required=""
                      lay-verify="required|rePwd" autocomplete="off" class="layui-input"
                      placeholder="请确认新密码"/>
             </div>
           </div>
           <div class="layui-form-item">
-            <button class="layui-btn" key="set-mine" lay-filter="updatePass" lay-submit>确认修改
+            <button class="layui-btn layui-btn-normal" key="set-mine" lay-filter="updatePass" lay-submit>确认修改
             </button>
           </div>
 
@@ -236,10 +234,6 @@
       });
     });
     form.verify({
-      user: [
-        /^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$/, "用户名不能出现特殊字符"
-      ],
-
       pwd: function (value, item) {
         var Digital = /\d/;
         var Letters = /[a-zA-Z]/;
@@ -250,7 +244,7 @@
       rePwd: function (value, item) {
         var pwd = $("#L_pass").val();
         if (pwd != value) {
-          return '密码与确认密码不正确';
+          return '密码和确认密码不相同';
         }
         var origin = $("input[name='oldPass']").val();
         if (origin == value) {
@@ -259,9 +253,10 @@
 
       }
     });
+
     form.on("submit(updatePass)", function (data) {
       $.ajax({
-        url: '/user/changePw'
+        url: '/user/changePwd'
         , type: 'post'
         , contentType: 'application/json'
         , data: JSON.stringify(data.field)
@@ -290,7 +285,7 @@
   });
 
   layui.config({
-    version: "2.0.0"
+    version: "3.0.0"
     , base: '/static/res/mods/'
   }).extend({
     fly: 'index'

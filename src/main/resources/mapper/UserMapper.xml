@@ -34,6 +34,9 @@
       <if test="avatar != null">
         avatar = #{avatar},
       </if>
+      <if test="password != null">
+        password = #{password},
+      </if>
     </set>
     where username = #{username}
   </update>

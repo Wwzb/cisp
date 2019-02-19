@@ -21,6 +21,6 @@
   </select>
 
   <select id="getAticlesByUserId" resultType="com.zbin.cisp.domain.Article">
-    select * from article where user_id = #{userId}
+    select * from article where user_id = #{userId} order by create_time desc;
   </select>
 </mapper>

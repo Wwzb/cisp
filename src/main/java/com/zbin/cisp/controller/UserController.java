@@ -1,5 +1,7 @@
 package com.zbin.cisp.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.UserService;
 import com.zbin.cisp.utils.FileUtil;
@@ -10,9 +12,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +26,7 @@ public class UserController {
   @Resource
   UserService userService;
 
-  @RequestMapping("/doRegister")
+  @PostMapping("/doRegister")
   @ResponseBody
   public ReturnJson doRegister(@RequestBody User user) {
     try {
@@ -39,7 +40,7 @@ public class UserController {
     }
   }
 
-  @RequestMapping("/doLogin")
+  @PostMapping("/doLogin")
   @ResponseBody
   public ReturnJson doLogin(HttpServletRequest request, @RequestBody User user) {
     User newUser = userService.loginCheck(user);
@@ -52,7 +53,7 @@ public class UserController {
     }
   }
 
-  @RequestMapping("/adminLogin")
+  @PostMapping("/adminLogin")
   @ResponseBody
   public ReturnJson adminLogin(@RequestBody User user) {
     User tmpUser = userService.getUserByUsername(user.getUsername());
@@ -68,13 +69,13 @@ public class UserController {
     return new ReturnJson(0, "登录成功", 0, "");
   }
 
-  @RequestMapping("/logout")
+  @PostMapping("/logout")
   public String logout(HttpServletRequest request) {
     request.getSession().invalidate();
     return "index";
   }
 
-  @RequestMapping("/user/update")
+  @PostMapping("/user/update")
   @ResponseBody
   public ReturnJson userUpdate(HttpServletRequest request, @RequestBody User user) {
     try {
@@ -86,7 +87,7 @@ public class UserController {
     }
   }
 
-  @RequestMapping("/user/setAvatar")
+  @PostMapping("/user/setAvatar")
   @ResponseBody
   public ReturnJson userSetAvatar(HttpServletRequest request, MultipartFile file) {
     try {
@@ -105,12 +106,23 @@ public class UserController {
 
   }
 
-  @RequestMapping("/user/changePwd")
+  @PostMapping("/user/changePwd")
   @ResponseBody
-  public ReturnJson userChangePwd(HttpServletRequest request, @RequestParam String oldPass,
-    @RequestParam String newPass) {
+  public ReturnJson userChangePwd(HttpServletRequest request, @RequestBody String param) {
     try {
-      return new ReturnJson("修改成功");
+      JSONObject json = JSON.parseObject(param);
+      String oldPwd = json.getString("oldPwd");
+      String newPwd = json.getString("newPwd");
+      User user = (User) request.getSession().getAttribute("user");
+      user.setPassword(oldPwd);
+      user = userService.loginCheck(user);
+      if (user == null) {
+        return new ReturnJson(1, "密码不正确");
+      } else {
+        user.setPassword(PasswordUtil.bryptPwd(newPwd));
+        userService.updateUser(user);
+        return new ReturnJson(0, "修改成功");
+      }
     } catch (Exception e) {
       return new ReturnJson("修改失败");
     }
