@@ -5,8 +5,10 @@ import com.zbin.cisp.domain.Category;
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.ArticleService;
 import com.zbin.cisp.service.CategoryService;
+import com.zbin.cisp.service.CommentService;
 import com.zbin.cisp.service.UserService;
 import com.zbin.cisp.vo.ArticleVO;
+import com.zbin.cisp.vo.CommentVO;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,9 @@ public class PageController {
 
   @Resource
   ArticleService articleService;
+
+  @Resource
+  CommentService commentService;
 
   @RequestMapping("/")
   public void test(HttpServletResponse response) throws Exception {
@@ -114,8 +119,13 @@ public class PageController {
 
   @RequestMapping("/article/{id}")
   public String articleDeatil(HttpServletRequest request, @PathVariable(value = "id") Integer id) {
+    request.getSession().removeAttribute("commentVOList");
     ArticleVO articleVO = articleService.getArticleById(id);
+    List<CommentVO> commentVOList = commentService.getCommentByArticleId(id);
     request.getSession().setAttribute("article", articleVO);
+    if (commentVOList.size() != 0) {
+      request.getSession().setAttribute("commentVOList", commentVOList);
+    }
     return "/frontend/article/detail";
   }
 

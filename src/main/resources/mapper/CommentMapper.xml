@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zbin.cisp.dao.CommentMapper">
+  <insert id="create" useGeneratedKeys="true" keyProperty="id">
+    insert into comment(user_id,article_id,content,create_time)
+    values (#{userId},#{articleId},#{content},now())
+  </insert>
+
+  <select id="getCommentByArticleId" parameterType="int" resultType="com.zbin.cisp.vo.CommentVO">
+    select * from comment where article_id = #{articleId} order by create_time desc
+  </select>
+</mapper>

@@ -40,4 +40,8 @@
     </set>
     where username = #{username}
   </update>
+
+  <select id="getUserById" resultType="com.zbin.cisp.domain.User">
+    select * from user where id = #{id}
+  </select>
 </mapper>

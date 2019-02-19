@@ -21,4 +21,6 @@ public interface UserMapper {
   List<User> getUsers();
 
   void updateUser(User user);
+
+  User getUserById(Integer id);
 }

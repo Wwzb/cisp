@@ -2,9 +2,11 @@ package com.zbin.cisp.controller;
 
 import com.zbin.cisp.domain.Article;
 import com.zbin.cisp.domain.Category;
+import com.zbin.cisp.domain.Comment;
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.ArticleService;
 import com.zbin.cisp.service.CategoryService;
+import com.zbin.cisp.service.CommentService;
 import com.zbin.cisp.utils.FileUtil;
 import com.zbin.cisp.utils.ReturnJson;
 import java.util.HashMap;
@@ -29,6 +31,9 @@ public class ArticleController {
 
   @Resource
   CategoryService categoryService;
+
+  @Resource
+  CommentService commentService;
 
   @RequestMapping("/uploadImg")
   @ResponseBody
@@ -95,6 +100,17 @@ public class ArticleController {
       }
     } catch (Exception e) {
       return new ReturnJson(1, "修改分类失败");
+    }
+  }
+
+  @RequestMapping("/addComment")
+  @ResponseBody
+  public ReturnJson addComment(@RequestBody Comment comment) {
+    try {
+      commentService.create(comment);
+      return new ReturnJson("评论成功");
+    } catch (Exception e) {
+      return new ReturnJson(1, "评论失败");
     }
   }
 }
