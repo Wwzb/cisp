@@ -87,7 +87,9 @@ public class PageController {
   @RequestMapping("/welcome")
   public String welcome(HttpServletRequest request) {
     int userCount = userService.countAll();
+    int articleCount = articleService.countAllArticle();
     request.getSession().setAttribute("userCount", userCount);
+    request.getSession().setAttribute("articleCount", articleCount);
     return "backend/welcome";
   }
 
@@ -96,7 +98,7 @@ public class PageController {
     return "backend/index";
   }
 
-  @RequestMapping("/admin/userManager")
+  @RequestMapping("/admin/user/userList")
   public String userManager(HttpServletRequest request) {
     int userCount = userService.countAll();
     List<User> userList = userService.getUsers();
@@ -128,5 +130,22 @@ public class PageController {
   @RequestMapping("/notice")
   public String notice() {
     return "/notice";
+  }
+
+  @RequestMapping("/admin/article/articleList")
+  public String articleList(HttpServletRequest request) {
+    int articleCount = articleService.countAllArticle();
+    request.getSession().setAttribute("articleCount", articleCount);
+    return "/backend/article/list";
+  }
+
+  @RequestMapping("/admin/article/category")
+  public String categoryList(HttpServletRequest request) {
+    return "/backend/article/category";
+  }
+
+  @RequestMapping("/admin/article/category/add")
+  public String addCategoryList(HttpServletRequest request) {
+    return "/backend/article/category-add";
   }
 }

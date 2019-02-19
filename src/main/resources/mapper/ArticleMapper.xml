@@ -23,4 +23,8 @@
   <select id="getAticlesByUserId" resultType="com.zbin.cisp.domain.Article">
     select * from article where user_id = #{userId} order by create_time desc;
   </select>
+
+  <select id="countAllArticle" resultType="int">
+    select count(1) from article;
+  </select>
 </mapper>

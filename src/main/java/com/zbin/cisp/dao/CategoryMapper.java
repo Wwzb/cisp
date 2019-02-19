@@ -13,4 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface CategoryMapper {
 
   List<Category> getAllCategory();
+
+  void create(Category category);
 }

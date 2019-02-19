@@ -8,13 +8,8 @@
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-		<link rel="stylesheet" href="../../static/css/font.css">
-		<link rel="stylesheet" href="../../static/css/weadmin.css">
-		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-		<!--[if lt IE 9]>
-	      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-	      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-	    <![endif]-->
+		<link rel="stylesheet" href="/static/css/font.css">
+		<link rel="stylesheet" href="/static/css/weadmin.css">
 		<style type="text/css">
 			.layui-form-switch {
 				width: 55px;
@@ -41,19 +36,11 @@
 			<div class="layui-row">
 				<form class="layui-form layui-col-md12 we-search">
 					文章搜索：
-					<div class="layui-input-inline">
-						<select name="cateid">
-							<option>请选择分类</option>
-							<option>文章</option>
-							<option>会员</option>
-							<option>权限</option>
-						</select>
+					<div class="layui-inline">
+						<input class="layui-input" placeholder="开始时间" name="start" id="start">
 					</div>
 					<div class="layui-inline">
-						<input class="layui-input" placeholder="开始日" name="start" id="start">
-					</div>
-					<div class="layui-inline">
-						<input class="layui-input" placeholder="截止日" name="end" id="end">
+						<input class="layui-input" placeholder="截止时间" name="end" id="end">
 					</div>
 					<div class="layui-inline">
 						<input type="text" name="keyword" placeholder="请输入关键字" autocomplete="off" class="layui-input">
@@ -67,7 +54,7 @@
 				<button class="layui-btn" data-type="Top"><i class="layui-icon">&#xe619;</i>置顶</button>
 				<button class="layui-btn" data-type="Review"><i class="layui-icon">&#xe6b2;</i>审核</button>
 				<button class="layui-btn" onclick="WeAdminShow('添加用户','./add.html',600,400)"><i class="layui-icon">&#xe61f;</i>添加</button>
-				<span class="fr" style="line-height:40px">共有数据：88 条</span>
+				<span class="fr" style="line-height:40px">共有数据：${articleCount} 条</span>
 			</div>
 			<table class="layui-hide" id="articleList"></table>
 
@@ -94,7 +81,7 @@
 					<i class="layui-icon">&#xe640;</i>
 				</a>
 			</script>
-			<script src="../../lib/layui/layui.js" charset="utf-8"></script>
+			<script src="/static/res/layui/layui.js" charset="utf-8"></script>
 			<script src="list.js" type="text/javascript" charset="utf-8"></script>
 
 		</div>

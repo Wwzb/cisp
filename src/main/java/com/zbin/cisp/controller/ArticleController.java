@@ -1,8 +1,10 @@
 package com.zbin.cisp.controller;
 
 import com.zbin.cisp.domain.Article;
+import com.zbin.cisp.domain.Category;
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.ArticleService;
+import com.zbin.cisp.service.CategoryService;
 import com.zbin.cisp.utils.FileUtil;
 import com.zbin.cisp.utils.ReturnJson;
 import java.util.HashMap;
@@ -25,6 +27,9 @@ public class ArticleController {
   @Resource
   ArticleService articleService;
 
+  @Resource
+  CategoryService categoryService;
+
   @RequestMapping("/uploadImg")
   @ResponseBody
   public ReturnJson upload(HttpServletRequest request, MultipartFile file) {
@@ -45,6 +50,21 @@ public class ArticleController {
       return new ReturnJson(0, "发布成功");
     } catch (Exception e) {
       return new ReturnJson(1, "发布失败");
+    }
+  }
+
+  @RequestMapping("/addCategory")
+  @ResponseBody
+  public ReturnJson addCategory(HttpServletRequest request, @RequestBody Category category) {
+    try {
+      if (category.getName() != null) {
+        categoryService.create(category);
+        return new ReturnJson(0, "新增分类成功");
+      } else {
+        return new ReturnJson(1, "分类名不能为空");
+      }
+    } catch (Exception e) {
+      return new ReturnJson(1, "新增分类失败");
     }
   }
 }

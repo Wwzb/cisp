@@ -36,4 +36,9 @@ public class ArticleServiceImpl implements ArticleService {
   public List<Article> getArticlesByUserId(Integer userId) {
     return articleMapper.getAticlesByUserId(userId);
   }
+
+  @Override
+  public int countAllArticle() {
+    return articleMapper.countAllArticle();
+  }
 }

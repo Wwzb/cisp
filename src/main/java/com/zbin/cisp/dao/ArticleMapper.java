@@ -20,4 +20,6 @@ public interface ArticleMapper {
   ArticleVO getArticleById(Integer id);
 
   List<Article> getAticlesByUserId(Integer userId);
+
+  int countAllArticle();
 }
