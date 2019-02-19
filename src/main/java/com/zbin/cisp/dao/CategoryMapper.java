@@ -15,4 +15,8 @@ public interface CategoryMapper {
   List<Category> getAllCategory();
 
   void create(Category category);
+
+  void deleteById(Integer id);
+
+  void updateById(Category category);
 }

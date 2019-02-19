@@ -57,6 +57,7 @@
               var index = parent.layer.getFrameIndex(window.name);
               //关闭当前frame
               parent.layer.close(index);
+              window.parent.location.reload();
             });
           } else {
             layer.alert(result.msg)

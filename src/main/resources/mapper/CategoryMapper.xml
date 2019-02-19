@@ -8,6 +8,15 @@
   </select>
 
   <insert id="create" useGeneratedKeys="true" keyProperty="id">
-    insert into category(name) values (#{name})
+    insert into category(name,create_time) values (#{name},now())
   </insert>
+
+  <delete id="deleteById">
+    delete from category where id = #{id}
+  </delete>
+
+  <update id="updateById" parameterType="com.zbin.cisp.domain.Category">
+    update category set name = #{name}
+    where id = #{id}
+  </update>
 </mapper>

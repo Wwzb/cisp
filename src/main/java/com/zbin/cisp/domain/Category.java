@@ -10,6 +10,8 @@ public class Category {
 
   private String name;
 
+  private String createTime;
+
   public Integer getId() {
     return id;
   }
@@ -24,6 +26,14 @@ public class Category {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getCreateTime() {
+    return createTime;
+  }
+
+  public void setCreateTime(String createTime) {
+    this.createTime = createTime;
   }
 
   @Override

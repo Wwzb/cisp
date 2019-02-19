@@ -21,24 +21,8 @@
     <i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
 </div>
 <div class="weadmin-body">
-  <div class="layui-row">
-    <form class="layui-form layui-col-md12 we-search">
-      分类查找：
-      <div class="layui-inline">
-        <input class="layui-input" placeholder="开始时间" name="start" id="start">
-      </div>
-      <div class="layui-inline">
-        <input class="layui-input" placeholder="结束时间" name="end" id="end">
-      </div>
-      <div class="layui-inline">
-        <input type="text" name="username" placeholder="分类名称" autocomplete="off" class="layui-input">
-      </div>
-      <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-    </form>
-  </div>
   <div class="weadmin-block">
     <button class="layui-btn layui-btn-normal" onclick="WeAdminShow('添加分类','/admin/article/category/add',350,180)"><i class="layui-icon"></i>添加分类</button>
-    <span class="fr" style="line-height:40px">共有数据：${userCount} 条</span>
   </div>
   <table class="layui-table" id="memberList">
     <thead>
@@ -50,17 +34,17 @@
     </tr>
     </thead>
     <tbody>
-    <#if userList??>
-      <#list userList as u>
+    <#if categoryList??>
+      <#list categoryList as category>
         <tr data-id="1">
-          <td>${u.id!"-"}</td>
-          <td>${u.lastLoginTime!"-"}</td>
-          <td>${u.regTime!"-"}</td>
+          <td>${category_index + 1}</td>
+          <td>${category.name!"-"}</td>
+          <td>${category.createTime}</td>
           <td class="td-manage">
-            <a title="编辑" onclick="WeAdminEdit('编辑','./edit.html', 1, 600, 400)" href="javascript:;">
+            <a title="编辑" onclick="WeAdminEdit('编辑','/admin/article/category/edit', ${category.id}, 340, 180)" href="javascript:;">
               <i class="layui-icon">&#xe642;</i>
             </a>
-            <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+            <a title="删除" onclick="delCatery(${category.id})" href="javascript:;">
               <i class="layui-icon">&#xe640;</i>
             </a>
           </td>
@@ -69,19 +53,64 @@
     </#if>
     </tbody>
   </table>
-  <div class="page">
-    <div>
-      <a class="prev" href="">&lt;&lt;</a>
-      <a class="num" href="">1</a>
-      <span class="current">2</span>
-      <a class="num" href="">3</a>
-      <a class="num" href="">489</a>
-      <a class="next" href="">&gt;&gt;</a>
-    </div>
-  </div>
 </div>
 <script src="/static/layui/layui.js" charset="utf-8"></script>
-<script src="/static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+<script>
+  layui.extend({
+    admin: '/static/js/admin'
+  });
+  layui.use(['admin', 'jquery', 'form', 'layer'], function () {
+    var admin = layui.admin,
+        $ = layui.jquery,
+        form = layui.form,
+        layer = layui.layer;
+
+    delCatery = function (id) {
+      layer.confirm('确定要删除吗？', function(index) {
+        var data = {"id":id}
+        $.ajax({
+          url: '/article/delCategory'
+          , type: 'post'
+          , contentType: 'application/json'
+          , data: JSON.stringify(data)
+          , success: function (result) {
+            if (result.code == 0) {
+              layer.msg(result.msg);
+              setTimeout('window.parent.location.reload()', 2000);
+            }else {
+              layer.msg(result.msg);
+            }
+          }
+        });
+      });
+    }
+
+    //监听提交
+    form.on('submit(addCategory)', function (data) {
+      $.ajax({
+        url: '/article/addCategory'
+        , type: 'post'
+        , contentType: 'application/json'
+        , data: JSON.stringify(data.field)
+        , success: function (result) {
+          if (result.code == 0) {
+            layer.alert("增加成功", {
+              icon: 1
+            }, function () {
+              // 获得frame索引
+              var index = parent.layer.getFrameIndex(window.name);
+              //关闭当前frame
+              parent.layer.close(index);
+            });
+          } else {
+            layer.alert(result.msg)
+          }
+        }
+      });
+      return false;
+    });
+  });
+</script>
 </body>
 
 </html>

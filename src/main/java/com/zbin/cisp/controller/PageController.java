@@ -141,11 +141,18 @@ public class PageController {
 
   @RequestMapping("/admin/article/category")
   public String categoryList(HttpServletRequest request) {
+    List<Category> categoryList = categoryService.getAllCategory();
+    request.getSession().setAttribute("categoryList", categoryList);
     return "/backend/article/category";
   }
 
   @RequestMapping("/admin/article/category/add")
-  public String addCategoryList(HttpServletRequest request) {
+  public String addCategory(HttpServletRequest request) {
     return "/backend/article/category-add";
+  }
+
+  @RequestMapping("/admin/article/category/edit")
+  public String editCategory(HttpServletRequest request) {
+    return "/backend/article/category-edit";
   }
 }

@@ -67,4 +67,34 @@ public class ArticleController {
       return new ReturnJson(1, "新增分类失败");
     }
   }
+
+  @RequestMapping("/delCategory")
+  @ResponseBody
+  public ReturnJson delCategory(HttpServletRequest request, @RequestBody Category category) {
+    try {
+      if (category.getId() != null) {
+        categoryService.deleteById(category.getId());
+        return new ReturnJson(0, "删除分类成功");
+      } else {
+        return new ReturnJson(1, "删除分类失败");
+      }
+    } catch (Exception e) {
+      return new ReturnJson(1, "新增分类失败");
+    }
+  }
+
+  @RequestMapping("/updateCategory")
+  @ResponseBody
+  public ReturnJson updateCategory(HttpServletRequest request, @RequestBody Category category) {
+    try {
+      if (category.getId() != null && category.getName() != null) {
+        categoryService.updateById(category);
+        return new ReturnJson(0, "修改分类成功");
+      } else {
+        return new ReturnJson(1, "修改分类失败");
+      }
+    } catch (Exception e) {
+      return new ReturnJson(1, "修改分类失败");
+    }
+  }
 }
