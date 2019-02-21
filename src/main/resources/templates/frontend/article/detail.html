@@ -30,7 +30,7 @@
           </a>
           <dl class="layui-nav-child">
             <dd><a href="/user/set"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-            <dd><a href="user/home.html"><i class="layui-icon"
+            <dd><a href="/user/center"><i class="layui-icon"
                                             style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
             </dd>
             <hr style="margin: 5px 0;">
@@ -86,13 +86,13 @@
       <div class="fly-panel detail-box">
         <h1>${article.title}</h1>
         <div class="detail-about">
-          <a class="fly-avatar" href="../user/home.html">
+          <a class="fly-avatar" href="/user/${article.userId}">
             <img
               src="${article.avatar!}"
               alt="${article.nickname}">
           </a>
           <div class="fly-detail-user">
-            <a href="../user/home.html" class="fly-link">
+            <a href="/user/${article.userId}" class="fly-link">
               <cite>${article.nickname}</cite>
             </a>
             <span>${article.createTime}</span>
@@ -118,7 +118,7 @@
               <li data-id="111" class="jieda-daan">
                 <a name="item-1111111111"></a>
                 <div class="detail-about detail-about-reply">
-                  <a class="fly-avatar" href="">
+                  <a class="fly-avatar" href="/user/${commentVO.userId}">
                     <img
                       src="${commentVO.avatar}"
                       alt="${commentVO.nickname}">

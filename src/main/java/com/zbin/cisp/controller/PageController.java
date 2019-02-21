@@ -186,13 +186,13 @@ public class PageController {
 
   @RequestMapping("/user/{id}")
   public String userHome(HttpServletRequest request, @PathVariable(value = "id") Integer id) {
-    request.getSession().removeAttribute("commentVOList");
-    ArticleVO articleVO = articleService.getArticleById(id);
-    List<CommentVO> commentVOList = commentService.getCommentByArticleId(id);
-    request.getSession().setAttribute("article", articleVO);
-    if (commentVOList.size() != 0) {
-      request.getSession().setAttribute("commentVOList", commentVOList);
+    List<ArticleVO> articleVOList = articleService.getArticlesByUserId(id);
+    for (ArticleVO articleVO : articleVOList) {
+      articleVO.setCommentCount(commentService.getCommentByArticleId(articleVO.getId()).size());
     }
+    User userInfo = userService.getUserById(id);
+    request.getSession().setAttribute("userInfo", userInfo);
+    request.getSession().setAttribute("articleVOList", articleVOList);
     return "/frontend/user/home";
   }
 

@@ -18,38 +18,53 @@
     </a>
 
     <ul class="layui-nav fly-nav-user">
+
       <!-- 登入后的状态 -->
-      <li class="layui-nav-item">
-        <a class="fly-nav-avatar" href="javascript:;">
-          <cite class="layui-hide-xs">${user.nickname}</cite>
-          <img
-            src="${user.avatar}">
-        </a>
-        <dl class="layui-nav-child">
-          <dd><a href="/user/set"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-          <dd><a href="/user/${user.id}"><i class="layui-icon"
-                                             style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
-          </dd>
-          <hr style="margin: 5px 0;">
-          <dd><a href="" style="text-align: center;">退出</a></dd>
-        </dl>
-      </li>
+      <#if Session['user']?exists>
+
+        <li class="layui-nav-item">
+          <a class="fly-nav-avatar" href="javascript:;">
+            <cite class="layui-hide-xs">${user.nickname}</cite>
+            <img
+              src="${user.avatar}">
+          </a>
+          <dl class="layui-nav-child">
+            <dd><a href="/user/set"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+            <dd><a href="/user/${user.id}"><i class="layui-icon"
+                                              style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
+            </dd>
+            <hr style="margin: 5px 0;">
+            <dd><a href="/logout" style="text-align: center;">退出</a></dd>
+          </dl>
+        </li>
+      <#else>
+        <!-- 未登入的状态 -->
+        <li class="layui-nav-item">
+          <a class="iconfont icon-touxiang layui-hide-xs" href="/login"></a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/login">登录</a>
+        </li>
+        <li class="layui-nav-item">
+          <a href="/register">注册</a>
+        </li>
+      </#if>
     </ul>
   </div>
 </div>
 
 <div class="fly-home fly-panel" style="background-image: url();">
-  <img src="${user.avatar}"
-       alt="${user.nickname}">
+  <img src="${userInfo.avatar!}"
+       alt="${userInfo.nickname!}">
   <h1>
-    ${user.nickname}
+    ${userInfo.nickname!}
   </h1>
 
   <p class="fly-home-info">
-    <i class="iconfont icon-shijian"></i><span>${user.regTime?date} 加入</span>
+    <i class="iconfont icon-shijian"></i><span>${userInfo.regTime?date} 加入</span>
   </p>
 
-  <p class="fly-home-sign">个性签名：${user.signature!'这个人有点懒，什么都没有留下'}</p>
+  <p class="fly-home-sign">个性签名：${userInfo.signature!'这个人有点懒，什么都没有留下'}</p>
 
 
 </div>
@@ -58,14 +73,20 @@
   <div class="layui-row layui-col-space15">
     <div class="layui-col-md12 fly-home-jie">
       <div class="fly-panel">
-        <h3 class="fly-panel-title">${user.nickname} 最近发的信息</h3>
+        <h3 class="fly-panel-title">${userInfo.nickname} 最近发的信息</h3>
         <ul class="jie-row">
-          <li>
-            <a href="" class="jie-title"> 这是一条测试数据</a>
-            <i>刚刚</i>
-            <em class="layui-hide-xs">1136阅/27答</em>
-          </li>
-          <!-- <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><i style="font-size:14px;">没有发表任何求解</i></div> -->
+          <#if articleVOList??>
+            <#list articleVOList as article>
+              <li>
+                <a href="" class="jie-title">${article.title}</a>
+                <i>${article.createTime}</i>
+                <em class="layui-hide-xs">${article.commentCount}评论</em>
+              </li>
+            </#list>
+          <#else>
+            <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><i
+                style="font-size:14px;">没有发表任何帖子</i></div>
+          </#if>
         </ul>
       </div>
     </div>

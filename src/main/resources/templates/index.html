@@ -26,7 +26,7 @@
           <a class="fly-nav-avatar" href="javascript:;">
             <cite class="layui-hide-xs">${user.nickname}</cite>
             <img
-              src="${user.avatar}">
+              src="${user.avatar!}">
           </a>
           <dl class="layui-nav-child">
             <dd><a href="/user/set"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
@@ -167,7 +167,7 @@
                 </a>
                 <h2>
                   <a class="layui-badge">${article.category}</a>
-                  <a href="/article/${article.id}">${article.title!}</a>
+                  <a href="/article/${article.id}" style="" id="titleColor">${article.title!}</a>
                 </h2>
                 <div class="fly-list-info">
                   <a href="user/home.html" link>
