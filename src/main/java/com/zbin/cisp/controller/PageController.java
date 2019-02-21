@@ -8,6 +8,7 @@ import com.zbin.cisp.service.CommentService;
 import com.zbin.cisp.service.UserService;
 import com.zbin.cisp.vo.ArticleVO;
 import com.zbin.cisp.vo.CommentVO;
+import java.util.Comparator;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by Zbin on 2019-02-13
@@ -40,11 +42,27 @@ public class PageController {
   }
 
   @RequestMapping("/index")
-  public String index(HttpServletRequest request) {
-    List<ArticleVO> articleList = articleService.getIndexArticles();
-    for (ArticleVO articleVO : articleList) {
-      articleVO.setCommentCount(commentService.getCommentByArticleId(articleVO.getId()).size());
+  public String index(HttpServletRequest request, @RequestParam(required = false) Integer cId,
+    @RequestParam(required = false) String order) {
+    List<Category> list = categoryService.getAllCategory();
+    request.getSession().setAttribute("category", list);
+    List<ArticleVO> articleList;
+    if (cId == null || cId == 0) {
+      articleList = articleService.getIndexArticles();
+      for (ArticleVO articleVO : articleList) {
+        articleVO.setCommentCount(commentService.getCommentByArticleId(articleVO.getId()).size());
+      }
+    } else {
+      articleList = articleService.getArticlesByCategoryId(cId);
+      for (ArticleVO articleVO : articleList) {
+        articleVO.setCommentCount(commentService.getCommentByArticleId(articleVO.getId()).size());
+      }
     }
+    if ("hot".equals(order)) {
+      articleList.sort(Comparator.comparing(ArticleVO::getCommentCount).reversed());
+    }
+    request.getSession().setAttribute("cId", cId);
+    request.getSession().setAttribute("order", order);
     request.getSession().setAttribute("articleList", articleList);
     return "index";
   }
@@ -84,11 +102,6 @@ public class PageController {
     List<Category> list = categoryService.getAllCategory();
     request.getSession().setAttribute("category", list);
     return "frontend/article/add";
-  }
-
-  @RequestMapping("/detail")
-  public String detail() {
-    return "frontend/detail";
   }
 
   @RequestMapping("/welcome")
@@ -182,4 +195,5 @@ public class PageController {
     }
     return "/frontend/user/home";
   }
+
 }

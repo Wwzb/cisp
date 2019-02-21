@@ -8,13 +8,13 @@
   </insert>
 
   <select id="getIndexArticles" resultType="com.zbin.cisp.vo.ArticleVO">
-    select article.*, user.nickname, category.name as category from article
+    select article.*, user.nickname,user.avatar, category.name as category from article
     inner join category on article.category_id = category.id
     inner join `user` on `user`.id = article.user_id order by article.create_time desc;
   </select>
 
   <select id="getArticleById" resultType="com.zbin.cisp.vo.ArticleVO">
-    select article.*, user.nickname,user.signature, category.name as category from article
+    select article.*, user.nickname,user.signature, user.avatar,category.name as category from article
     inner join category on article.category_id = category.id
     inner join `user` on `user`.id = article.user_id
     where article.id = #{id};
@@ -26,5 +26,12 @@
 
   <select id="countAllArticle" resultType="int">
     select count(1) from article;
+  </select>
+
+  <select id="getArticleByCategoryId" resultType="com.zbin.cisp.vo.ArticleVO">
+    select article.*, user.nickname,user.signature,user.avatar, category.name as category from article
+    inner join category on article.category_id = category.id
+    inner join `user` on `user`.id = article.user_id
+    where article.category_id = #{categoryId};
   </select>
 </mapper>

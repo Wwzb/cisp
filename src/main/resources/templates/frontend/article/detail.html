@@ -58,10 +58,10 @@
     <div class="layui-container">
       <ul class="layui-clear">
         <li class="layui-hide-xs"><a href="/">首页</a></li>
-        <li><a href="">个人中心</a></li>
-        <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span
-            class="fly-mid"></span></li>
         <#if Session['user']?exists>
+          <li><a href="/user/${user.id}">个人中心</a></li>
+          <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span
+              class="fly-mid"></span></li>
           <!-- 用户登入后显示 -->
           <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a
               href="/user/center">我发布的信息</a></li>
@@ -88,7 +88,7 @@
         <div class="detail-about">
           <a class="fly-avatar" href="../user/home.html">
             <img
-              src="${user.avatar}"
+              src="${article.avatar!}"
               alt="${article.nickname}">
           </a>
           <div class="fly-detail-user">
@@ -115,49 +115,52 @@
         <ul class="jieda" id="jieda">
           <#if commentVOList??>
             <#list commentVOList as commentVO>
-            <li data-id="111" class="jieda-daan">
-              <a name="item-1111111111"></a>
-              <div class="detail-about detail-about-reply">
-                <a class="fly-avatar" href="">
-                  <img
-                    src="${commentVO.avatar}"
-                    alt="${commentVO.nickname}">
-                </a>
+              <li data-id="111" class="jieda-daan">
+                <a name="item-1111111111"></a>
+                <div class="detail-about detail-about-reply">
+                  <a class="fly-avatar" href="">
+                    <img
+                      src="${commentVO.avatar}"
+                      alt="${commentVO.nickname}">
+                  </a>
 
-                <div class="detail-hits">
-                  <span>${commentVO.nickname}</span>
-                  <br>
-                  <span>${commentVO.createTime}</span>
+                  <div class="detail-hits">
+                    <span>${commentVO.nickname}</span>
+                    <br>
+                    <span>${commentVO.createTime}</span>
+                  </div>
+
                 </div>
-
-              </div>
-              <div class="detail-body jieda-body photos">
-                <p>${commentVO.content}</p>
-              </div>
-            </li>
+                <div class="detail-body jieda-body photos">
+                  <p>${commentVO.content}</p>
+                </div>
+              </li>
             </#list>
-            <#else>
-              <!-- 无数据时 -->
-             <li class="fly-none">消灭零回复</li>
+          <#else>
+            <!-- 无数据时 -->
+            <li class="fly-none">消灭零回复</li>
           </#if>
         </ul>
-
         <div class="layui-form layui-form-pane">
-          <form action="/article/reply/" method="post">
-            <div class="layui-form-item layui-form-text">
-              <a name="comment"></a>
-              <div class="layui-input-block">
+          <#if Session['user']?exists>
+            <form action="/article/reply/" method="post">
+              <div class="layui-form-item layui-form-text">
+                <a name="comment"></a>
+                <div class="layui-input-block">
                 <textarea id="L_content" name="content" required lay-verify="required"
                           placeholder="请输入内容" class="layui-textarea fly-editor"
                           style="height: 150px;"></textarea>
+                </div>
               </div>
-            </div>
-            <div class="layui-form-item">
-              <input type="hidden" name="userId" value="${user.id}">
-              <input type="hidden" name="articleId" value="${article.id}">
-              <button class="layui-btn" lay-filter="comment" lay-submit>提交回复</button>
-            </div>
-          </form>
+              <div class="layui-form-item">
+                <input type="hidden" name="userId" value="${user.id}">
+                <input type="hidden" name="articleId" value="${article.id}">
+                <button class="layui-btn" lay-filter="comment" lay-submit>提交回复</button>
+              </div>
+            </form>
+          <#else>
+            使用评论功能，请先<a href="/login" style="color: blue;"><u>登录</u></a>
+          </#if>
         </div>
       </div>
     </div>

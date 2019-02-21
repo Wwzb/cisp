@@ -19,5 +19,7 @@ public interface ArticleService {
 
   List<ArticleVO> getArticlesByUserId(Integer userId);
 
+  List<ArticleVO> getArticlesByCategoryId(Integer category);
+
   int countAllArticle();
 }
