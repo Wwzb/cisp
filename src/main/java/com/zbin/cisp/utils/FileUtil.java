@@ -19,13 +19,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileUtil {
 
-  private static final String accessKey = "pl7KvcAWGCe1eI2RPKKyrp7zxU_o8PM6rGAb7SG7";
+  private static final String ACCESS_KEY = "pl7KvcAWGCe1eI2RPKKyrp7zxU_o8PM6rGAb7SG7";
 
-  private static final String secretKey = "aQtmNi3Zvo_qDJ-8tBQ1tObNxJ-M95Bkr2ndIpDK";
+  private static final String SECRET_KEY = "aQtmNi3Zvo_qDJ-8tBQ1tObNxJ-M95Bkr2ndIpDK";
 
-  private static final String prefixUrl = "http://cdn.iwzb.top/";
+  private static final String PREFIX_URL = "http://cdn.iwzb.top/";
 
-  private static final String bucket = "cisp";
+  private static final String BUCKET = "cisp";
 
   public static String upload(MultipartFile originFile) {
     try {
@@ -43,7 +43,7 @@ public class FileUtil {
       //解析上传成功的结果
       DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
       if (file.delete()) {
-        return prefixUrl + putRet.key;
+        return PREFIX_URL + putRet.key;
       }
       return null;
     } catch (Exception e) {
@@ -55,7 +55,7 @@ public class FileUtil {
   public static boolean delete(String key) {
     try {
       BucketManager bkm = getBucketManager();
-      bkm.delete(bucket, key);
+      bkm.delete(BUCKET, key);
       return true;
     } catch (Exception e) {
       return false;
@@ -69,7 +69,7 @@ public class FileUtil {
 
   private static BucketManager getBucketManager() {
     Configuration cfg = new Configuration(Zone.zone0());
-    Auth auth = Auth.create(accessKey, secretKey);
+    Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
     return new BucketManager(auth, cfg);
   }
 
@@ -80,7 +80,7 @@ public class FileUtil {
   }
 
   private static String getToken() {
-    Auth auth = Auth.create(accessKey, secretKey);
-    return auth.uploadToken(bucket);
+    Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
+    return auth.uploadToken(BUCKET);
   }
 }
