@@ -37,6 +37,9 @@
       <if test="password != null">
         password = #{password},
       </if>
+      <if test="status != null">
+        status = #{status},
+      </if>
     </set>
     where username = #{username}
   </update>

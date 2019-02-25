@@ -128,4 +128,21 @@ public class UserController {
       return new ReturnJson("修改失败");
     }
   }
+
+  @PostMapping("/user/changeStatus")
+  @ResponseBody
+  public ReturnJson userChangeStatus(HttpServletRequest request, @RequestBody String param) {
+    try {
+      JSONObject json = JSON.parseObject(param);
+      String username = json.getString("username");
+      String status = json.getString("status");
+      User user = new User();
+      user.setUsername(username);
+      user.setStatus(status);
+      userService.updateUser(user);
+      return new ReturnJson(0, "修改状态成功");
+    } catch (Exception e) {
+      return new ReturnJson("修改状态失败");
+    }
+  }
 }

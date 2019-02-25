@@ -74,8 +74,8 @@
 						<td class="td-status">
 							<span class="layui-btn layui-btn-normal layui-btn-xs">${u.status!"-"}</span></td>
 						<td class="td-manage">
-							<a onclick="member_stop(this,'10001')" href="javascript:;" title="启用">
-								<i class="layui-icon">&#xe601;</i>
+							<a onclick="user_silence(this,${u.username})" title="<#if u.status == '禁言'>正常<#else >禁言</#if>">
+								<i class="layui-icon">&#xe60f;</i>
 							</a>
 							<a title="编辑" onclick="WeAdminEdit('编辑','./edit.html', 1, 600, 400)" href="javascript:;">
 								<i class="layui-icon">&#xe642;</i>

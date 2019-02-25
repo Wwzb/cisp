@@ -7,6 +7,7 @@ import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.ArticleService;
 import com.zbin.cisp.service.CategoryService;
 import com.zbin.cisp.service.CommentService;
+import com.zbin.cisp.service.UserService;
 import com.zbin.cisp.utils.FileUtil;
 import com.zbin.cisp.utils.ReturnJson;
 import java.util.HashMap;
@@ -34,6 +35,9 @@ public class ArticleController {
 
   @Resource
   CommentService commentService;
+
+  @Resource
+  UserService userService;
 
   @RequestMapping("/uploadImg")
   @ResponseBody
@@ -107,6 +111,10 @@ public class ArticleController {
   @ResponseBody
   public ReturnJson addComment(@RequestBody Comment comment) {
     try {
+      User user = userService.getUserById(comment.getUserId());
+      if ("禁言".equals(user.getStatus())) {
+        return new ReturnJson(1, "您被禁言，无法发表评论!");
+      }
       commentService.create(comment);
       return new ReturnJson("评论成功");
     } catch (Exception e) {
