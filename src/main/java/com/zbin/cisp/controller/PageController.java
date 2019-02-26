@@ -204,4 +204,8 @@ public class PageController {
     return "/backend/user/edit";
   }
 
+  @RequestMapping("/admin/user/add")
+  public String userAdd(HttpServletRequest request) {
+    return "/backend/user/add";
+  }
 }

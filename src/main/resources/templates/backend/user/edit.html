@@ -41,7 +41,7 @@
       </label>
       <div class="layui-input-inline">
         <input type="text" id="L_phone" name="nickname" value="${editUser.nickname!'(未设置)'}"
-               lay-verify="required|nikename" autocomplete="off" style="color: blue" class="layui-input">
+               lay-verify="required|nickname" autocomplete="off" style="color: blue" class="layui-input">
       </div>
     </div>
     <div class="layui-form-item">
@@ -96,7 +96,7 @@
 
     //自定义验证规则
     form.verify({
-      nikename: function (value) {
+      nickname: function (value) {
         if (value.length < 2) {
           return '昵称至少输入2个字符!';
         }

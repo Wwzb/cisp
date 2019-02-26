@@ -27,13 +27,7 @@
     <form class="layui-form layui-col-md12 we-search">
       用户查找：
       <div class="layui-inline">
-        <input class="layui-input" placeholder="开始时间" name="start" id="start">
-      </div>
-      <div class="layui-inline">
-        <input class="layui-input" placeholder="结束时间" name="end" id="end">
-      </div>
-      <div class="layui-inline">
-        <input type="text" name="username" placeholder="用户名" autocomplete="off" class="layui-input">
+        <input type="text" name="username" placeholder="请输入用户名或昵称" autocomplete="off" class="layui-input">
       </div>
       <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>
       </button>
@@ -41,7 +35,7 @@
   </div>
   <div class="weadmin-block">
     <button class="layui-btn layui-btn-normal"
-            onclick="WeAdminShow('添加用户','/admin/article/category/add',600,400)"><i
+            onclick="WeAdminShow('添加用户','/admin/user/add',600,400)"><i
         class="layui-icon"></i>添加
     </button>
     <span class="fr" style="line-height:40px">共有数据：${userCount} 条</span>
@@ -51,7 +45,7 @@
     <tr>
       <th>序号</th>
       <th>ID</th>
-      <th>学号</th>
+      <th>用户名</th>
       <th>性别</th>
       <th>昵称</th>
       <th>类型</th>
@@ -83,10 +77,6 @@
             <a title="编辑" onclick="WeAdminEdit('编辑','/admin/user/edit?id=${u.id}', 1, 600, 400)"
                href="javascript:;">
               <i class="layui-icon">&#xe642;</i>
-            </a>
-            <a onclick="WeAdminShow('修改密码','./password.html',600,400)" title="修改密码"
-               href="javascript:;">
-              <i class="layui-icon">&#xe631;</i>
             </a>
             <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
               <i class="layui-icon">&#xe640;</i>
