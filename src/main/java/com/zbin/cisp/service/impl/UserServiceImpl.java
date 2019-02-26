@@ -45,13 +45,13 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public int countAll() {
-    return userMapper.countAll();
+  public int countAll(String search) {
+    return userMapper.countAll(search);
   }
 
   @Override
-  public List<User> getUsers() {
-    return userMapper.getUsers();
+  public List<User> getUsers(String search) {
+    return userMapper.getUsers(search);
   }
 
   @Override

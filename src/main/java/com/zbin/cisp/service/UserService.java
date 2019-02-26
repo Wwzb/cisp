@@ -22,9 +22,9 @@ public interface UserService {
 
   User getUserByUsername(String username);
 
-  int countAll();
+  int countAll(String search);
 
-  List<User> getUsers();
+  List<User> getUsers(String search);
 
   void updateUser(User user);
 

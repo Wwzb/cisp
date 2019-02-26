@@ -27,19 +27,19 @@
     <form class="layui-form layui-col-md12 we-search">
       用户查找：
       <div class="layui-inline">
-        <input type="text" name="username" placeholder="请输入用户名或昵称" autocomplete="off"
+        <input type="text" name="search" placeholder="请输入用户名或昵称" autocomplete="off"
                class="layui-input">
       </div>
-      <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>
+      <button class="layui-btn" lay-submit="search" lay-filter><i class="layui-icon">&#xe615;</i>
       </button>
     </form>
   </div>
   <div class="weadmin-block">
     <button class="layui-btn layui-btn-normal"
             onclick="WeAdminShow('添加用户','/admin/user/add',600,400)"><i
-        class="layui-icon"></i>添加
+        class="layui-icon"></i>添加用户
     </button>
-    <span class="fr" style="line-height:40px">共有数据：${userCount} 条</span>
+    <span class="fr" style="line-height:40px;color: #00d20d">共有数据：${userCount} 条</span>
   </div>
   <table class="layui-table" id="memberList">
     <thead>
@@ -130,6 +130,30 @@
         });
       });
     }
+
+    form.on('submit(search)', function (data) {
+      $.ajax({
+        url: '/admin/user/userList'
+        , type: 'post'
+        , contentType: "application/json"
+        , data: JSON.stringify(data.field)
+        , success: function (result) {
+          if (result.code == 0) {
+            layer.msg('添加成功', {
+              time: 2000, end: function () {
+                parent.layer.close(parent.layer.getFrameIndex(window.name));
+                parent.location.reload();              }
+            });
+          } else {
+            layer.msg(result.msg, {
+              time: 1000
+            });
+            parent.layer.close();
+          }
+        }
+      });
+      return false;
+    });
   });
 </script>
 </body>

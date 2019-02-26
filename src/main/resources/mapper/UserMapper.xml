@@ -11,12 +11,21 @@
     values (#{username},#{password},now(),#{nickname},#{gender})
   </insert>
 
-  <select id="countAll" resultType="integer">
-    select count(1) from user;
+  <select id="countAll" resultType="integer" parameterType="string">
+    select count(1) from user
+    <if test="search != null and search != ''">
+      where id like CONCAT('%',#{search},'%')
+      or username like CONCAT('%',#{search},'%')
+    </if>;
   </select>
 
-  <select id="getUsers" resultType="com.zbin.cisp.domain.User">
-    select * from user order by reg_time desc;
+  <select id="getUsers" resultType="com.zbin.cisp.domain.User" parameterType="string">
+    select * from user
+    <if test="search != null and search != ''">
+      where username like CONCAT('%',#{search},'%')
+      or nickname like CONCAT('%',#{search},'%')
+    </if>
+    order by reg_time desc;
   </select>
 
   <update id="updateUser" parameterType="com.zbin.cisp.domain.User">

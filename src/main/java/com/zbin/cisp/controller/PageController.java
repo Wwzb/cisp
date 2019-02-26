@@ -106,7 +106,7 @@ public class PageController {
 
   @RequestMapping("/welcome")
   public String welcome(HttpServletRequest request) {
-    int userCount = userService.countAll();
+    int userCount = userService.countAll(null);
     int articleCount = articleService.countAllArticle();
     request.getSession().setAttribute("userCount", userCount);
     request.getSession().setAttribute("articleCount", articleCount);
@@ -119,9 +119,9 @@ public class PageController {
   }
 
   @RequestMapping("/admin/user/userList")
-  public String userManager(HttpServletRequest request) {
-    int userCount = userService.countAll();
-    List<User> userList = userService.getUsers();
+  public String userManager(HttpServletRequest request, String search) {
+    int userCount = userService.countAll(search);
+    List<User> userList = userService.getUsers(search);
     request.getSession().setAttribute("userCount", userCount);
     request.getSession().setAttribute("userList", userList);
     return "backend/user/list";

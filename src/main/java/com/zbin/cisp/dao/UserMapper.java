@@ -3,6 +3,7 @@ package com.zbin.cisp.dao;
 import com.zbin.cisp.domain.User;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,9 +17,9 @@ public interface UserMapper {
 
   int insert(User user);
 
-  int countAll();
+  int countAll(@Param("search") String search);
 
-  List<User> getUsers();
+  List<User> getUsers(@Param("search") String search);
 
   void updateUser(User user);
 
