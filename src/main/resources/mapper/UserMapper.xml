@@ -40,6 +40,9 @@
       <if test="status != null">
         status = #{status},
       </if>
+      <if test="gender != null">
+        gender = #{gender},
+      </if>
     </set>
     where username = #{username}
   </update>

@@ -56,6 +56,13 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void updateUser(User user) {
+    if (user.getPassword() != null) {
+      if ("".equals(user.getPassword())) {
+        user.setPassword(null);
+      } else {
+        user.setPassword(PasswordUtil.bryptPwd(user.getPassword()));
+      }
+    }
     userMapper.updateUser(user);
   }
 

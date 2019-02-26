@@ -124,7 +124,7 @@ public class PageController {
     List<User> userList = userService.getUsers();
     request.getSession().setAttribute("userCount", userCount);
     request.getSession().setAttribute("userList", userList);
-    return "backend/member/userManager";
+    return "backend/user/list";
   }
 
   @RequestMapping("/user/set")
@@ -196,5 +196,12 @@ public class PageController {
     return "/frontend/user/home";
   }
 
+  @RequestMapping("/admin/user/edit")
+  public String userEdit(HttpServletRequest request, @RequestParam Integer id) {
+    request.getSession().removeAttribute("editUser");
+    User user = userService.getUserById(id);
+    request.setAttribute("editUser", user);
+    return "/backend/user/edit";
+  }
 
 }
