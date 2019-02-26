@@ -50,4 +50,8 @@
   <select id="getUserById" resultType="com.zbin.cisp.domain.User">
     select * from user where id = #{id}
   </select>
+
+  <delete id="deleteById">
+    delete  from user where id = #{id}
+  </delete>
 </mapper>

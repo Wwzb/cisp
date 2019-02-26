@@ -145,4 +145,17 @@ public class UserController {
       return new ReturnJson("修改状态失败");
     }
   }
+
+  @PostMapping("/user/delete")
+  @ResponseBody
+  public ReturnJson userDelete(HttpServletRequest request, @RequestBody String param) {
+    try {
+      JSONObject json = JSON.parseObject(param);
+      Integer id = json.getInteger("id");
+      userService.deleteById(id);
+      return new ReturnJson(0, "删除成功");
+    } catch (Exception e) {
+      return new ReturnJson("删除失败");
+    }
+  }
 }

@@ -70,4 +70,9 @@ public class UserServiceImpl implements UserService {
   public User getUserById(Integer id) {
     return userMapper.getUserById(id);
   }
+
+  @Override
+  public void deleteById(Integer id) {
+    userMapper.deleteById(id);
+  }
 }
