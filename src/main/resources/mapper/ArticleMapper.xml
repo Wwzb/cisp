@@ -34,4 +34,17 @@
     inner join `user` on `user`.id = article.user_id
     where article.category_id = #{categoryId};
   </select>
+
+  <update id="updateById">
+    update article
+    set title = #{title},
+    content = #{content},
+    category_id = #{categoryId},
+    create_time = now()
+    where id = #{id}
+  </update>
+
+  <delete id="deleteById">
+    delete from article where id = #{id}
+  </delete>
 </mapper>

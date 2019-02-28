@@ -1,5 +1,6 @@
 package com.zbin.cisp.controller;
 
+import com.zbin.cisp.domain.Article;
 import com.zbin.cisp.domain.Category;
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.ArticleService;
@@ -166,6 +167,8 @@ public class PageController {
   @RequestMapping("/admin/article/articleList")
   public String articleList(HttpServletRequest request) {
     List<ArticleVO> articleList = articleService.getIndexArticles();
+    List<Category> list = categoryService.getAllCategory();
+    request.getSession().setAttribute("category", list);
     request.getSession().setAttribute("articleCount", articleList.size());
     request.getSession().setAttribute("articleList", articleList);
     return "/backend/article/list";
@@ -202,7 +205,6 @@ public class PageController {
 
   @RequestMapping("/admin/user/edit")
   public String userEdit(HttpServletRequest request, @RequestParam Integer id) {
-    request.getSession().removeAttribute("editUser");
     User user = userService.getUserById(id);
     request.setAttribute("editUser", user);
     return "/backend/user/edit";
@@ -213,8 +215,13 @@ public class PageController {
     return "/backend/user/add";
   }
 
-  @RequestMapping("/admin/article/add")
-  public String articleAdd(HttpServletRequest request) {
+  @RequestMapping("/admin/article/edit")
+  public String articleAdd(HttpServletRequest request,
+    @RequestParam(required = false) Integer articleId) {
+    if (articleId != null) {
+      Article article = articleService.getArticleById(articleId);
+      request.setAttribute("editArticle", article);
+    }
     return "/backend/article/article-edit";
   }
 }

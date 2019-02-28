@@ -46,4 +46,14 @@ public class ArticleServiceImpl implements ArticleService {
   public List<ArticleVO> getArticlesByCategoryId(Integer category) {
     return articleMapper.getArticleByCategoryId(category);
   }
+
+  @Override
+  public void update(Article article) {
+    articleMapper.updateById(article);
+  }
+
+  @Override
+  public void delete(Integer id) {
+    articleMapper.deleteById(id);
+  }
 }

@@ -11,16 +11,6 @@
   <link rel="stylesheet" href="/static/css/font.css">
   <link rel="stylesheet" href="/static/css/weadmin.css">
   <script src="/static/layui/layui.js" charset="utf-8"></script>
-  <style type="text/css">
-    .layui-form-switch {
-      width: 55px;
-    }
-
-    .layui-form-switch em {
-      width: 40px;
-    }
-
-  </style>
 </head>
 
 <body>
@@ -42,7 +32,11 @@
       <div class="layui-input-inline">
         <select name="cateid">
           <option>请选择分类</option>
-          <option>权限</option>
+          <#if category??>
+            <#list category as c>
+              <option value="${c.id}">${c.name}</option>
+            </#list>
+          </#if>
         </select>
       </div>
       <div class="layui-inline">
@@ -60,7 +54,8 @@
     </form>
   </div>
   <div class="weadmin-block">
-    <button class="layui-btn layui-btn-normal" onclick="WeAdminShow('添加文章','/admin/article/add','','',1)"><i
+    <button class="layui-btn layui-btn-normal"
+            onclick="WeAdminShow('添加文章','/admin/article/edit','','',1)"><i
         class="layui-icon">&#xe61f;</i>添加
     </button>
     <span class="fr" style="line-height:40px">共有数据：${articleCount} 条</span>
@@ -79,30 +74,33 @@
     </tr>
     </thead>
     <tbody>
-      <#if articleList??>
-        <#list articleList as article>
-          <tr data-id="1">
-            <td>${article_index + 1}</td>
-            <td>${article.id}</td>
-            <td>${article.title}</td>
-            <td>${article.category}</td>
-            <td>${article.nickname}</td>
-            <td>${article.createTime}</td>
-            <td></td>
-            <td class="td-manage">
-              <a title="编辑" onclick="WeAdminEdit('编辑','/admin/article/add', 2)" href="javascript:;">
-                <i class="layui-icon">&#xe642;</i>
-              </a>
-              <a title="查看" onclick="WeAdminShow('查看文章','/article/17',800,400)" href="javascript:;">
-                <i class="layui-icon">&#xe63c;</i>
-              </a>
-              <a title="删除" onclick="article_del(this,'要删除的id')" href="javascript:;">
-                <i class="layui-icon">&#xe640;</i>
-              </a>
-            </td>
-          </tr>
-        </#list>
-      </#if>
+    <#if articleList??>
+      <#list articleList as article>
+        <tr data-id="1">
+          <td>${article_index + 1}</td>
+          <td>${article.id}</td>
+          <td>${article.title}</td>
+          <td>${article.category}</td>
+          <td>${article.nickname}</td>
+          <td>${article.createTime}</td>
+          <td></td>
+          <td class="td-manage">
+            <a title="编辑"
+               onclick="WeAdminEdit('编辑','/admin/article/edit?articleId=${article.id}', 2)"
+               href="javascript:;">
+              <i class="layui-icon">&#xe642;</i>
+            </a>
+            <a title="查看" onclick="WeAdminShow('查看文章','/article/${article.id}',800,400)"
+               href="javascript:;">
+              <i class="layui-icon">&#xe63c;</i>
+            </a>
+            <a title="删除" onclick="article_del(this,${article.id})" href="javascript:;">
+              <i class="layui-icon">&#xe640;</i>
+            </a>
+          </td>
+        </tr>
+      </#list>
+    </#if>
     </tbody>
   </table>
 </div>
@@ -110,9 +108,10 @@
   layui.extend({
     admin: '/static/js/admin'
   });
-  layui.use(['laydate', 'table', 'form', 'layer', 'admin'], function () {
+  layui.use(['laydate', 'table', 'form', 'layer', 'admin', 'jquery'], function () {
     var laydate = layui.laydate,
         table = layui.table,
+        $ = layui.jquery,
         layer = layui.layer,
         admin = layui.admin,
         form = layui.form;
@@ -129,6 +128,30 @@
 
     form.render();
 
+    article_del = function (obj, id) {
+      layer.confirm('确认要删除吗？', function (index) {
+        var data = {"id": id}
+        $.ajax({
+          url: '/article/delete'
+          , type: 'post'
+          , contentType: 'application/json'
+          , data: JSON.stringify(data)
+          , success: function (result) {
+            if (result.code == 0) {
+              layer.msg(result.msg, {
+                time: 2000, end: function () {
+                  parent.layer.close(parent.layer.getFrameIndex(window.name));
+                  parent.location.reload();
+                }
+              });
+            } else {
+              layer.msg(result.msg);
+            }
+          }
+        });
+      });
+    }
+
     //监听开关操作
     form.on('switch(tuijian)', function (obj) {
       layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
@@ -142,18 +165,6 @@
       layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
     });
   });
-
-
-  function article_del(obj, id) {
-    layer.confirm('确认要删除吗？', function (index) {
-      //发异步删除数据
-      $(obj).parents("tr").remove();
-      layer.msg('已删除!', {
-        icon: 1,
-        time: 1000
-      });
-    });
-  }
 </script>
 </body>
 

@@ -24,4 +24,8 @@ public interface ArticleMapper {
   int countAllArticle();
 
   List<ArticleVO> getArticleByCategoryId(Integer categoryId);
+
+  void updateById(Article article);
+
+  void deleteById(Integer id);
 }

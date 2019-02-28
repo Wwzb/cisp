@@ -1,5 +1,7 @@
 package com.zbin.cisp.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.zbin.cisp.domain.Article;
 import com.zbin.cisp.domain.Category;
 import com.zbin.cisp.domain.Comment;
@@ -55,7 +57,11 @@ public class ArticleController {
     try {
       User user = (User) request.getSession().getAttribute("user");
       article.setUserId(user.getId());
-      articleService.create(article);
+      if (article.getId() == null) {
+        articleService.create(article);
+      } else {
+        articleService.update(article);
+      }
       return new ReturnJson(0, "发布成功");
     } catch (Exception e) {
       return new ReturnJson(1, "发布失败");
@@ -119,6 +125,19 @@ public class ArticleController {
       return new ReturnJson("评论成功");
     } catch (Exception e) {
       return new ReturnJson(1, "评论失败");
+    }
+  }
+
+  @RequestMapping("/delete")
+  @ResponseBody
+  public ReturnJson deleteArticle(@RequestBody String param) {
+    try {
+      JSONObject json = JSON.parseObject(param);
+      Integer id = json.getInteger("id");
+      articleService.delete(id);
+      return new ReturnJson("删除成功");
+    } catch (Exception e) {
+      return new ReturnJson(1, "删除失败");
     }
   }
 }

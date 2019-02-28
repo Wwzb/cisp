@@ -27,7 +27,7 @@
                           <option></option>
                           <#if category??>
                             <#list category as c>
-                              <option value="${c.id}">${c.name}</option>
+                              <option value="${c.id}" <#if editArticle??&&editArticle.categoryId == c.id>selected</#if>>${c.name}</option>
                             </#list>
                           </#if>
                         </select>
@@ -38,7 +38,10 @@
                       <div class="layui-input-block">
                         <input placeholder="请输入标题" type="text" id="L_title" name="title" required
                                lay-verify="title"
-                               autocomplete="off" class="layui-input">
+                               autocomplete="off" class="layui-input" value="<#if editArticle??>${editArticle.title!}</#if>">
+                        <#if editArticle??>
+                          <input type="hidden" id="L_title" name="id" class="layui-input" value="${editArticle.id}">
+                        </#if>
                       </div>
                     </div>
                   </div>
@@ -46,7 +49,7 @@
                     <div class="layui-input-block">
                   <textarea placeholder="请输入内容" id="editText" name="content" required
                             lay-verify="article_content"
-                            class="layui-textarea fly-editor" style="height: 250px;"></textarea>
+                            class="layui-textarea fly-editor" style="height: 250px;"><#if editArticle??>${editArticle.content!}</#if></textarea>
                     </div>
                   </div>
                   <div class="layui-form-item">
