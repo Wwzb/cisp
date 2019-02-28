@@ -306,24 +306,8 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
       w       弹出层宽度（缺省调默认值）
       h       弹出层高度（缺省调默认值）
   */
-  window.WeAdminShow = function (title, url, w, h) {
-    if (title == null || title == '') {
-      title = false;
-    }
-    ;
-    if (url == null || url == '') {
-      url = "404.html";
-    }
-    ;
-    if (w == null || w == '') {
-      w = ($(window).width() * 0.9);
-    }
-    ;
-    if (h == null || h == '') {
-      h = ($(window).height() - 50);
-    }
-    ;
-    layer.open({
+  window.WeAdminShow = function (title, url, w, h, x) {
+    var index = layer.open({
       type: 2,
       area: [w + 'px', h + 'px'],
       fix: false, //不固定
@@ -333,6 +317,10 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
       title: title,
       content: url
     });
+    if (x == 1) {
+      layer.full(index);
+    }
+    ;
   }
   /*弹出层+传递ID参数*/
   window.WeAdminEdit = function (title, url, id, w, h) {
@@ -429,55 +417,6 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
     }
     sessionStorage.setItem('menu', JSON.stringify(menu));
   }
-
-  //本地存储记录当前打开窗口
-  function setStorageCurMenu() {
-    var curMenu = sessionStorage.getItem('curMenu');
-    var text = $('.layui-tab-title').find('.layui-this').text();
-    text = text.split('ဆ')[0];
-    var url = $('.layui-tab-content').find('.layui-show').find(
-        '.weIframe').attr('src');
-    var id = $('.layui-tab-title').find('.layui-this').attr('lay-id');
-    //console.log(text);
-    curMenu = {
-      title: text,
-      url: url,
-      id: id
-    }
-    sessionStorage.setItem('curMenu', JSON.stringify(curMenu));
-  }
-
-  //本地存储中移除删除的元素
-  function removeStorageMenu(id) {
-    var menu = JSON.parse(sessionStorage.getItem('menu'));
-    //var curMenu = JSON.parse(localStorage.getItem('curMenu'));
-    if (menu) {
-      var deep = false;
-      for (var i = 0; i < menu.length; i++) {
-        if (menu[i].id == id) {
-          deep = true;
-          menu.splice(i, 1);
-        }
-      }
-    } else {
-      return false;
-    }
-    sessionStorage.setItem('menu', JSON.stringify(menu));
-  }
-
-  /**
-   *@todo 模拟登录
-   * 判断初次登录时，跳转到登录页
-   */
-  var login = localStorage.getItem('login');
-  $('.loginout').click(function () {
-    login = 0;
-    localStorage.setItem('login', login);
-  });
-  $('.loginin').click(function () {
-    login = 1;
-    localStorage.setItem('login', login);
-  });
 
   /*
    *Tab加载后刷新

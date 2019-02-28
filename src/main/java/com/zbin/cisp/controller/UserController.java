@@ -64,7 +64,7 @@ public class UserController {
     if (!PasswordUtil.validPwd(user.getPassword(), tmpUser.getPassword())) {
       return new ReturnJson(1, "用户名或密码错误", 0, "");
     }
-    if ("normal".equals(tmpUser.getType())) {
+    if (!"管理员".equals(tmpUser.getType())) {
       return new ReturnJson(1, "该用户不是管理员!", 0, "");
     }
     return new ReturnJson(0, "登录成功", 0, "");

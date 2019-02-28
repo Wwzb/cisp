@@ -61,6 +61,9 @@ public class PageController {
     if ("hot".equals(order)) {
       articleList.sort(Comparator.comparing(ArticleVO::getCommentCount).reversed());
     }
+    if ("new".equals(order)) {
+      articleList.sort(Comparator.comparing(ArticleVO::getCreateTime).reversed());
+    }
     request.getSession().setAttribute("cId", cId);
     request.getSession().setAttribute("order", order);
     request.getSession().setAttribute("articleList", articleList);
@@ -162,8 +165,9 @@ public class PageController {
 
   @RequestMapping("/admin/article/articleList")
   public String articleList(HttpServletRequest request) {
-    int articleCount = articleService.countAllArticle();
-    request.getSession().setAttribute("articleCount", articleCount);
+    List<ArticleVO> articleList = articleService.getIndexArticles();
+    request.getSession().setAttribute("articleCount", articleList.size());
+    request.getSession().setAttribute("articleList", articleList);
     return "/backend/article/list";
   }
 
@@ -207,5 +211,10 @@ public class PageController {
   @RequestMapping("/admin/user/add")
   public String userAdd(HttpServletRequest request) {
     return "/backend/user/add";
+  }
+
+  @RequestMapping("/admin/article/add")
+  public String articleAdd(HttpServletRequest request) {
+    return "/backend/article/article-edit";
   }
 }
