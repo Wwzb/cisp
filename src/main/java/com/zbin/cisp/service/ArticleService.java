@@ -26,4 +26,8 @@ public interface ArticleService {
   void update(Article article);
 
   void delete(Integer id);
+
+  void setTopStatus(Integer id);
+
+  List<ArticleVO> getTopArticle();
 }

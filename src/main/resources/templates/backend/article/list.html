@@ -83,7 +83,11 @@
           <td>${article.category}</td>
           <td>${article.nickname}</td>
           <td>${article.createTime}</td>
-          <td></td>
+          <form class="layui-form" action="">
+          <td>
+              <input type="checkbox" name="id" <#if article.top == true>checked</#if> value="${article.id}" lay-filter="top" lay-skin="switch" lay-text="已置顶|未置顶">
+          </td>
+          </form>
           <td class="td-manage">
             <a title="编辑"
                onclick="WeAdminEdit('编辑','/admin/article/edit?articleId=${article.id}', 2)"
@@ -152,18 +156,16 @@
       });
     }
 
-    //监听开关操作
-    form.on('switch(tuijian)', function (obj) {
-      layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
-    });
-    form.on('switch(zhiding)', function (obj) {
-      layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
+    //监听指定开关
+    form.on('switch(top)', function(data){
+      $.ajax({
+        url: '/article/setTop'
+        , type: 'post'
+        , contentType: 'application/json'
+        , data: JSON.stringify(data)
+      });
     });
 
-    //监听锁定操作
-    form.on('checkbox(lockDemo)', function (obj) {
-      layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
-    });
   });
 </script>
 </body>

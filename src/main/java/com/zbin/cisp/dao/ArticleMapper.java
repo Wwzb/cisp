@@ -28,4 +28,8 @@ public interface ArticleMapper {
   void updateById(Article article);
 
   void deleteById(Integer id);
+
+  void updateTopStatus(Integer id, String top);
+
+  List<ArticleVO> getTopArticle();
 }

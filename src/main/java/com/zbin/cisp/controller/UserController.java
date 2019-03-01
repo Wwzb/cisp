@@ -151,8 +151,6 @@ public class UserController {
   public ReturnJson userDelete(HttpServletRequest request, @RequestBody String param) {
     try {
       JSONObject json = JSON.parseObject(param);
-      Integer id = json.getInteger("id");
-      userService.deleteById(id);
       return new ReturnJson(0, "删除成功");
     } catch (Exception e) {
       return new ReturnJson("删除失败");

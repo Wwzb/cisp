@@ -140,4 +140,17 @@ public class ArticleController {
       return new ReturnJson(1, "删除失败");
     }
   }
+
+  @RequestMapping("/setTop")
+  @ResponseBody
+  public ReturnJson setTopArticle(@RequestBody String param) {
+    try {
+      JSONObject json = JSON.parseObject(param);
+      Integer articleId = json.getInteger("value");
+      articleService.setTopStatus(articleId);
+      return new ReturnJson("置顶成功");
+    } catch (Exception e) {
+      return new ReturnJson(1, "置顶成功");
+    }
+  }
 }

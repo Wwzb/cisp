@@ -47,4 +47,16 @@
   <delete id="deleteById">
     delete from article where id = #{id}
   </delete>
+
+  <update id="updateTopStatus">
+    update article set top = #{top}
+    where id = #{id}
+  </update>
+
+  <select id="getTopArticle" resultType="com.zbin.cisp.vo.ArticleVO">
+    select article.*, user.nickname,user.avatar, category.name as category from article
+    inner join category on article.category_id = category.id
+    inner join `user` on `user`.id = article.user_id
+    where top = 'true' order by article.create_time desc;
+  </select>
 </mapper>

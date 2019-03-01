@@ -16,6 +16,7 @@ public class Article {
   private Integer view;
   private Integer star;
   private Integer status;
+  private Boolean top;
 
   public Integer getId() {
     return id;
@@ -95,5 +96,13 @@ public class Article {
 
   public void setCreateTime(String createTime) {
     this.createTime = createTime;
+  }
+
+  public Boolean getTop() {
+    return top;
+  }
+
+  public void setTop(Boolean top) {
+    this.top = top;
   }
 }

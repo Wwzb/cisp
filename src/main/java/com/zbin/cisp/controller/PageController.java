@@ -46,7 +46,7 @@ public class PageController {
   public String index(HttpServletRequest request, @RequestParam(required = false) Integer cId,
     @RequestParam(required = false) String order) {
     List<Category> list = categoryService.getAllCategory();
-    request.getSession().setAttribute("category", list);
+    request.setAttribute("category", list);
     List<ArticleVO> articleList;
     if (cId == null || cId == 0) {
       articleList = articleService.getIndexArticles();
@@ -65,9 +65,13 @@ public class PageController {
     if ("new".equals(order)) {
       articleList.sort(Comparator.comparing(ArticleVO::getCreateTime).reversed());
     }
-    request.getSession().setAttribute("cId", cId);
-    request.getSession().setAttribute("order", order);
-    request.getSession().setAttribute("articleList", articleList);
+    List<ArticleVO> topArticleList = articleService.getTopArticle();
+    if (topArticleList.size() > 0) {
+      request.setAttribute("topArticleList", topArticleList);
+    }
+    request.setAttribute("cId", cId);
+    request.setAttribute("order", order);
+    request.setAttribute("articleList", articleList);
     return "index";
   }
 

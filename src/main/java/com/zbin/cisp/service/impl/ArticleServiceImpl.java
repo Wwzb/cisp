@@ -56,4 +56,19 @@ public class ArticleServiceImpl implements ArticleService {
   public void delete(Integer id) {
     articleMapper.deleteById(id);
   }
+
+  @Override
+  public void setTopStatus(Integer id) {
+    Article article = articleMapper.getArticleById(id);
+    if (article.getTop()) {
+      articleMapper.updateTopStatus(id, "false");
+    } else {
+      articleMapper.updateTopStatus(id, "true");
+    }
+  }
+
+  @Override
+  public List<ArticleVO> getTopArticle() {
+    return articleMapper.getTopArticle();
+  }
 }
