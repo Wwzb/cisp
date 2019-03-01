@@ -1,5 +1,7 @@
 package com.zbin.cisp.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.zbin.cisp.domain.Article;
 import com.zbin.cisp.domain.Category;
 import com.zbin.cisp.domain.User;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -169,12 +172,22 @@ public class PageController {
   }
 
   @RequestMapping("/admin/article/articleList")
-  public String articleList(HttpServletRequest request) {
-    List<ArticleVO> articleList = articleService.getIndexArticles();
+  public String articleList(HttpServletRequest request,
+    @RequestBody(required = false) String param) {
     List<Category> list = categoryService.getAllCategory();
-    request.getSession().setAttribute("category", list);
-    request.getSession().setAttribute("articleCount", articleList.size());
-    request.getSession().setAttribute("articleList", articleList);
+    request.setAttribute("category", list);
+    if (param != null) {
+      JSONObject json = JSON.parseObject(param);
+      Integer categoryId = json.getInteger("categoryId");
+      String keyword = json.getString("keyword");
+      String startTime = json.getString("startTime");
+      String endTime = json.getString("endTime");
+      List<ArticleVO> articleVOList = articleService
+        .searchArticle(categoryId, startTime, endTime, keyword);
+      request.getSession().setAttribute("articleList", articleVOList);
+      request.getSession().setAttribute("articleCount", articleVOList.size());
+      return "/backend/article/list";
+    }
     return "/backend/article/list";
   }
 
@@ -222,6 +235,8 @@ public class PageController {
   @RequestMapping("/admin/article/edit")
   public String articleAdd(HttpServletRequest request,
     @RequestParam(required = false) Integer articleId) {
+    List<Category> list = categoryService.getAllCategory();
+    request.getSession().setAttribute("category", list);
     if (articleId != null) {
       Article article = articleService.getArticleById(articleId);
       request.setAttribute("editArticle", article);

@@ -59,4 +59,24 @@
     inner join `user` on `user`.id = article.user_id
     where top = 'true' order by article.create_time desc;
   </select>
+
+  <select id="searchArticle" resultType="com.zbin.cisp.vo.ArticleVO">
+    select article.*, user.nickname,user.avatar, category.name as category from article
+    inner join category on article.category_id = category.id
+    inner join `user` on `user`.id = article.user_id
+    where 1 = 1
+    <if test="categoryId != null and categoryId != 0">
+      and category_id = #{categoryId}
+    </if>
+    <if test="startTime != null and startTime != ''">
+      and article.create_time > #{startTime}
+    </if>
+    <if test="endTime != null and endTime != ''">
+      and article.create_time &lt; #{endTime}
+    </if>
+    <if test="keyword != null and keyword != ''">
+      and title like CONCAT('%',#{keyword},'%')
+    </if>
+    order by article.create_time desc;
+  </select>
 </mapper>

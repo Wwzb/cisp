@@ -18,6 +18,16 @@
     <div class="layui-form-item">
       <label class="layui-form-label">分类名称</label>
       <div class="layui-input-block">
+        <select lay-verify="required" name="categoryId" lay-filter="column">
+          <option></option>
+          <#if category??>
+            <#list category as c>
+              <option value="${c.id}">${c.name}</option>
+            </#list>
+          </#if>
+        </select>
+      </div>
+      <div class="layui-input-block">
         <input type="text" name="name" lay-verify="required" jq-error="请输入分类名称"
                placeholder="请输入分类名称" autocomplete="off" class="layui-input ">
       </div>

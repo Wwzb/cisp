@@ -71,4 +71,10 @@ public class ArticleServiceImpl implements ArticleService {
   public List<ArticleVO> getTopArticle() {
     return articleMapper.getTopArticle();
   }
+
+  @Override
+  public List<ArticleVO> searchArticle(Integer categoryId, String startTime, String endTime,
+    String keyword) {
+    return articleMapper.searchArticle(categoryId, startTime, endTime, keyword);
+  }
 }

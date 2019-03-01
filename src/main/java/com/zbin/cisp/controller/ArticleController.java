@@ -12,7 +12,9 @@ import com.zbin.cisp.service.CommentService;
 import com.zbin.cisp.service.UserService;
 import com.zbin.cisp.utils.FileUtil;
 import com.zbin.cisp.utils.ReturnJson;
+import com.zbin.cisp.vo.ArticleVO;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -150,7 +152,25 @@ public class ArticleController {
       articleService.setTopStatus(articleId);
       return new ReturnJson("置顶成功");
     } catch (Exception e) {
-      return new ReturnJson(1, "置顶成功");
+      return new ReturnJson(1, "置顶失败");
+    }
+  }
+
+  @RequestMapping("/search")
+  @ResponseBody
+  public ReturnJson searchArticle(HttpServletRequest request, @RequestBody String param) {
+    try {
+      JSONObject json = JSON.parseObject(param);
+      Integer categoryId = json.getInteger("categoryId");
+      String keyword = json.getString("keyword");
+      String startTime = json.getString("startTime");
+      String endTime = json.getString("endTime");
+      List<ArticleVO> articleVOList = articleService
+        .searchArticle(categoryId, startTime, endTime, keyword);
+      request.setAttribute("articleList", articleVOList);
+      return new ReturnJson("查询成功");
+    } catch (Exception e) {
+      return new ReturnJson(1, "查询失败");
     }
   }
 }

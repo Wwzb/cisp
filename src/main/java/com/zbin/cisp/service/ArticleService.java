@@ -30,4 +30,8 @@ public interface ArticleService {
   void setTopStatus(Integer id);
 
   List<ArticleVO> getTopArticle();
+
+  List<ArticleVO> searchArticle(Integer categoryId, String startTime, String endTime,
+    String keyword);
+
 }

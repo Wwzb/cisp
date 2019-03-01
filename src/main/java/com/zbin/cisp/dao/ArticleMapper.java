@@ -32,4 +32,7 @@ public interface ArticleMapper {
   void updateTopStatus(Integer id, String top);
 
   List<ArticleVO> getTopArticle();
+
+  List<ArticleVO> searchArticle(Integer categoryId, String startTime, String endTime,
+    String keyword);
 }

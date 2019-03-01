@@ -30,8 +30,8 @@
     <form class="layui-form layui-col-md12 we-search">
       文章搜索：
       <div class="layui-input-inline">
-        <select name="cateid">
-          <option>请选择分类</option>
+        <select name="categoryId">
+          <option value="0">请选择分类</option>
           <#if category??>
             <#list category as c>
               <option value="${c.id}">${c.name}</option>
@@ -40,16 +40,16 @@
         </select>
       </div>
       <div class="layui-inline">
-        <input class="layui-input" placeholder="开始日期" name="start" id="start">
+        <input class="layui-input" placeholder="开始日期" name="startTime" id="start">
       </div>
       <div class="layui-inline">
-        <input class="layui-input" placeholder="截止日期" name="end" id="end">
+        <input class="layui-input" placeholder="截止日期" name="endTime" id="end">
       </div>
       <div class="layui-inline">
         <input type="text" name="keyword" placeholder="请输入关键字" autocomplete="off"
                class="layui-input">
       </div>
-      <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i>
+      <button class="layui-btn" lay-submit lay-filter="search" type="button"><i class="layui-icon">&#xe615;</i>
       </button>
     </form>
   </div>
@@ -163,6 +163,18 @@
         , type: 'post'
         , contentType: 'application/json'
         , data: JSON.stringify(data)
+      });
+    });
+
+    form.on("submit(search)", function (data) {
+      $.ajax({
+        url: '/admin/article/articleList'
+        , type: 'post'
+        , contentType: 'application/json'
+        , data: JSON.stringify(data.field)
+        , success: function (result) {
+          parent.location.reload();
+        }
       });
     });
 
