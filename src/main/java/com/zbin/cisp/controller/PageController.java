@@ -243,4 +243,9 @@ public class PageController {
     }
     return "/backend/article/article-edit";
   }
+
+  @RequestMapping("/admin/add")
+  public String adminAdd(HttpServletRequest request) {
+    return "/backend/admin/add";
+  }
 }
