@@ -121,6 +121,7 @@ public class PageController {
     int articleCount = articleService.countAllArticle();
     request.getSession().setAttribute("userCount", userCount);
     request.getSession().setAttribute("articleCount", articleCount);
+    request.setAttribute("ip", request.getRemoteAddr());
     return "backend/welcome";
   }
 
@@ -244,8 +245,4 @@ public class PageController {
     return "/backend/article/article-edit";
   }
 
-  @RequestMapping("/admin/add")
-  public String adminAdd(HttpServletRequest request) {
-    return "/backend/admin/add";
-  }
 }

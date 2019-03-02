@@ -1,194 +1,216 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>后台管理系统</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="keywords" content="后台管理系统">
-    <meta name="description" content="后台管理系统">
-    <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="/static/layui/css/layui.css">
-    <link rel="stylesheet" href="/static/css/scroll-bar.css">
-    <link rel="stylesheet" href="/static/css/sub-page.css">
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_693759_hsptnwurztv.css">
+  <meta charset="utf-8">
+  <title>后台管理系统</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="后台管理系统">
+  <meta name="description" content="后台管理系统">
+  <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon"/>
+  <link rel="stylesheet" href="/static/layui/css/layui.css">
+  <link rel="stylesheet" href="/static/css/scroll-bar.css">
+  <link rel="stylesheet" href="/static/css/sub-page.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_693759_hsptnwurztv.css">
 </head>
 <body>
 <div class="ok-body">
-    <blockquote class="layui-elem-quote">
-        欢迎超级管理员：<span class="x-red">Zbin</span>！当前时间: <span id="nowTime"></span> <span id="weekday"></span>
-    </blockquote>
-    <fieldset class="layui-elem-field">
-        <legend>数据统计</legend>
-        <div class="layui-row layui-col-space10 layui-row-margin">
-            <div class="layui-col-md3">
-                <div class="layui-bg-green md2-sub1">
-                    <i class="iconfont icon-dianliyonghuzongshu"></i>
-                </div>
-                <div class="md2-sub2">
-                    <span>${userCount}</span>
-                    <cite>用户总数</cite>
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <div class="layui-bg-blue md2-sub1">
-                    <i class="iconfont icon-wenzhang2"></i>
-                </div>
-                <div class="md2-sub2">
-                    <span>${articleCount}</span>
-                    <cite>文章总数</cite>
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <div class="layui-bg-black md2-sub1">
-                    <i class="iconfont icon-pinglun"></i>
-                </div>
-                <div class="md2-sub2">
-                    <span>100</span>
-                    <cite>评论总数</cite>
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <div class="layui-bg-red md2-sub1">
-                    <i class="iconfont icon-webpage"></i>
-                </div>
-                <div class="md2-sub2">
-                    <span>100</span>
-                    <cite>页面总数</cite>
-                </div>
-            </div>
+  <blockquote class="layui-elem-quote">
+    欢迎超级管理员：<span class="x-red">${adminUser.nickname}</span>！当前时间: <span id="nowTime"></span> <span
+      id="weekday"></span>
+  </blockquote>
+  <fieldset class="layui-elem-field">
+    <legend>数据统计</legend>
+    <div class="layui-row layui-col-space10 layui-row-margin">
+      <div class="layui-col-md3">
+        <div class="layui-bg-green md2-sub1">
+          <i class="iconfont icon-dianliyonghuzongshu"></i>
         </div>
-    </fieldset>
+        <div class="md2-sub2">
+          <span>${userCount}</span>
+          <cite>用户总数</cite>
+        </div>
+      </div>
+      <div class="layui-col-md3">
+        <div class="layui-bg-blue md2-sub1">
+          <i class="iconfont icon-wenzhang2"></i>
+        </div>
+        <div class="md2-sub2">
+          <span>${articleCount}</span>
+          <cite>文章总数</cite>
+        </div>
+      </div>
+      <div class="layui-col-md3">
+        <div class="layui-bg-black md2-sub1">
+          <i class="iconfont icon-pinglun"></i>
+        </div>
+        <div class="md2-sub2">
+          <span>100</span>
+          <cite>评论总数</cite>
+        </div>
+      </div>
+      <div class="layui-col-md3">
+        <div class="layui-bg-red md2-sub1">
+          <i class="iconfont icon-webpage"></i>
+        </div>
+        <div class="md2-sub2">
+          <span>100</span>
+          <cite>页面总数</cite>
+        </div>
+      </div>
+    </div>
+  </fieldset>
 
-    <blockquote class="layui-elem-quote">
-        系统基本参数
-    </blockquote>
-    <table class="layui-table">
-        <colgroup>
-            <col width="300">
-            <col>
-        </colgroup>
-        <tbody>
-        <tr>
-            <td>本机IP地址</td>
-            <td>1.1.1.1</td>
-        </tr>
-        <tr>
-            <td>服务器地址1</td>
-            <td><a href="http://www.iwzb.top:8080" target="_blank">http://www.iwzb.top</a></td>
-        </tr>
-        <tr>
-            <td>操作系统</td>
-            <td>CentOS 7.3</td>
-        </tr>
-        <tr>
-            <td>运行环境</td>
-            <td>JDK 1.8.0_171</td>
-        </tr>
-        <tr>
-            <td>数据库版本</td>
-            <td>MySQL 5.7</td>
-        </tr>
-        <tr>
-            <td>最大上传限制</td>
-            <td>5M</td>
-        </tr>
-        <tr>
-            <td>当前用户权限</td>
-            <td>超级管理员</td>
-        </tr>
-        <tr>
-            <td>剩余空间</td>
-            <td>40000M</td>
-        </tr>
-        </tbody>
-    </table>
+  <blockquote class="layui-elem-quote">
+    系统基本参数
+  </blockquote>
+  <table class="layui-table">
+    <colgroup>
+      <col width="300">
+      <col>
+    </colgroup>
+    <tbody>
+    <tr>
+      <td>本机IP地址</td>
+      <td>${ip}</td>
+    </tr>
+    <tr>
+      <td>服务器地址</td>
+      <td><a href="http://www.iwzb.top:8080" target="_blank">http://www.iwzb.top</a></td>
+    </tr>
+    <tr>
+      <td>操作系统</td>
+      <td>CentOS 7.3</td>
+    </tr>
+    <tr>
+      <td>运行环境</td>
+      <td>JDK 1.8.0_191</td>
+    </tr>
+    <tr>
+      <td>数据库版本</td>
+      <td>MySQL 5.7</td>
+    </tr>
+    <tr>
+      <td>最大上传限制</td>
+      <td>5M</td>
+    </tr>
+    <tr>
+      <td>当前用户权限</td>
+      <td>超级管理员</td>
+    </tr>
+    <tr>
+      <td>剩余空间</td>
+      <td>40000M</td>
+    </tr>
+    </tbody>
+  </table>
 
-    <blockquote class="layui-elem-quote">
-        更新日志
-    </blockquote>
-    <ul class="layui-timeline">
-        <li class="layui-timeline-item">
-            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-            <div class="layui-timeline-content layui-text">
-                <h3 class="layui-timeline-title">2月12日</h3>
-                <p>
-                    边实习边准备毕设
-                    <br>今天，初始化项目
-                </p>
-            </div>
-        </li>
-        <li class="layui-timeline-item">
-            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-            <div class="layui-timeline-content layui-text">
-                <div class="layui-timeline-title">过去</div>
-            </div>
-        </li>
-    </ul>
+  <blockquote class="layui-elem-quote">
+    更新日志
+  </blockquote>
+  <ul class="layui-timeline">
+    <li class="layui-timeline-item">
+      <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+      <div class="layui-timeline-content layui-text">
+        <h3 class="layui-timeline-title">2月12日</h3>
+        <p>
+          边实习边准备毕设
+          <br>今天，初始化项目
+        </p>
+      </div>
+    </li>
+    <li class="layui-timeline-item">
+      <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+      <div class="layui-timeline-content layui-text">
+        <div class="layui-timeline-title">过去</div>
+      </div>
+    </li>
+  </ul>
 </div>
 <!--js逻辑-->
 <script src="/static/layui/layui.js"></script>
 <script>
-    /**
-     * 初始化函数
-     */
-    setDate();
+  /**
+   * 初始化函数
+   */
+  setDate();
 
-    /**
-     * 获取当前时间
-     */
-    var nowDate1 = "";
-    function setDate() {
-        var date = new Date();
-        var year = date.getFullYear();
-        nowDate1 = year + "-" + addZero((date.getMonth() + 1)) + "-" + addZero(date.getDate()) + "  ";
-        nowDate1 += addZero(date.getHours()) + ":" + addZero(date.getMinutes()) + ":" + addZero(date.getSeconds());
-        document.getElementById("nowTime").innerHTML = nowDate1;
-        setTimeout('setDate()', 1000);
+  /**
+   * 获取当前时间
+   */
+  var nowDate1 = "";
+
+  function setDate() {
+    var date = new Date();
+    var year = date.getFullYear();
+    nowDate1 = year + "-" + addZero((date.getMonth() + 1)) + "-" + addZero(date.getDate()) + "  ";
+    nowDate1 += addZero(date.getHours()) + ":" + addZero(date.getMinutes()) + ":" + addZero(
+        date.getSeconds());
+    document.getElementById("nowTime").innerHTML = nowDate1;
+    setTimeout('setDate()', 1000);
+  }
+
+  /**
+   * 年月日是分秒为10以下的数字则添加0字符串
+   * @param time
+   * @returns {number | *}
+   */
+  function addZero(time) {
+    var i = parseInt(time);
+    if (i / 10 < 1) {
+      i = "0" + i;
     }
+    return i;
+  }
 
-    /**
-     * 年月日是分秒为10以下的数字则添加0字符串
-     * @param time
-     * @returns {number | *}
-     */
-    function addZero(time) {
-        var i = parseInt(time);
-        if (i / 10 < 1) {
-            i = "0" + i;
-        }
-        return i;
-    }
+  /**
+   * 初始化星期几
+   * @type {string}
+   */
+  var weekday = "星期" + "日一二三四五六".charAt(new Date().getDay());
+  document.getElementById("weekday").innerHTML = weekday;
 
-    /**
-     * 初始化星期几
-     * @type {string}
-     */
-    var weekday = "星期" + "日一二三四五六".charAt(new Date().getDay());
-    document.getElementById("weekday").innerHTML = weekday;
-
-    layui.use('util', function () {
-        var util = layui.util;
-        util.fixbar({});
-    });
+  layui.use('util', function () {
+    var util = layui.util;
+    util.fixbar({});
+  });
 </script>
 <!--天气预报插件-->
 <script>
-    (function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js"))
+  (function (T, h, i, n, k, P, a, g, e) {
+    g = function () {
+      P = h.createElement(i);
+      a = h.getElementsByTagName(i)[0];
+      P.src = k;
+      P.charset = "utf-8";
+      P.async = 1;
+      a.parentNode.insertBefore(P, a)
+    };
+    T["ThinkPageWeatherWidgetObject"] = n;
+    T[n] || (T[n] = function () {
+      (T[n].q = T[n].q || []).push(arguments)
+    });
+    T[n].l = +new Date();
+    if (T.attachEvent) {
+      T.attachEvent("onload", g)
+    } else {
+      T.addEventListener("load", g, false)
+    }
+  }(window, document, "script", "tpwidget", "//widget.seniverse.com/widget/chameleon.js"))
 </script>
 <script>
-    tpwidget("init", {
-        "flavor": "bubble",
-        "location": "WX4FBXXFKE4F",
-        "geolocation": "enabled",
-        "position": "top-right",
-        "margin": "10px 10px",
-        "language": "zh-chs",
-        "unit": "c",
-        "theme": "chameleon",
-        "uid": "U3414DB4A9",
-        "hash": "91ff44d1248d72fc847c6177474e1533"
-    });
-    tpwidget("show");
+  tpwidget("init", {
+    "flavor": "bubble",
+    "location": "WX4FBXXFKE4F",
+    "geolocation": "enabled",
+    "position": "top-right",
+    "margin": "10px 10px",
+    "language": "zh-chs",
+    "unit": "c",
+    "theme": "chameleon",
+    "uid": "U3414DB4A9",
+    "hash": "91ff44d1248d72fc847c6177474e1533"
+  });
+  tpwidget("show");
 </script>
 </body>
 </html>

@@ -56,18 +56,23 @@ public class UserController {
 
   @PostMapping("/adminLogin")
   @ResponseBody
-  public ReturnJson adminLogin(@RequestBody User user) {
-    User tmpUser = userService.getUserByUsername(user.getUsername());
-    if (tmpUser == null) {
-      return new ReturnJson(1, "用户不存在!", 0, "");
+  public ReturnJson adminLogin(HttpServletRequest request, @RequestBody User user) {
+    try {
+      User adminUser = userService.getUserByUsername(user.getUsername());
+      if (adminUser == null) {
+        return new ReturnJson(1, "用户不存在!", 0, "");
+      }
+      if (!PasswordUtil.validPwd(user.getPassword(), adminUser.getPassword())) {
+        return new ReturnJson(1, "用户名或密码错误", 0, "");
+      }
+      if (!"管理员".equals(adminUser.getType())) {
+        return new ReturnJson(1, "该用户不是管理员!", 0, "");
+      }
+      request.getSession().setAttribute("adminUser", adminUser);
+      return new ReturnJson(0, "登录成功");
+    } catch (Exception e) {
+      return new ReturnJson(1, "登录失败");
     }
-    if (!PasswordUtil.validPwd(user.getPassword(), tmpUser.getPassword())) {
-      return new ReturnJson(1, "用户名或密码错误", 0, "");
-    }
-    if (!"管理员".equals(tmpUser.getType())) {
-      return new ReturnJson(1, "该用户不是管理员!", 0, "");
-    }
-    return new ReturnJson(0, "登录成功", 0, "");
   }
 
   @RequestMapping("/logout")

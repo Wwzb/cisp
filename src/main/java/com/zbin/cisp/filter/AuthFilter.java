@@ -17,8 +17,8 @@ import javax.servlet.http.HttpSession;
 
 public class AuthFilter implements Filter {
 
-  private static String[] includeUrls = new String[]{"/login", "/register", "/index", "/",
-    "/doLogin", "/doRegister"};
+  private static final String[] URL = new String[]{"/login", "/register", "/index", "/",
+    "/doLogin", "/doRegister", "/article", "/admin"};
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
@@ -38,12 +38,12 @@ public class AuthFilter implements Filter {
     HttpServletResponse response = (HttpServletResponse) servletResponse;
     HttpSession session = request.getSession(false);
     String uri = request.getRequestURI();
-//    boolean needFilter = isNeedFilter(uri);
-    boolean needFilter = false;
+    boolean needFilter = isNeedFilter(uri);
     if (!needFilter) {
       filterChain.doFilter(servletRequest, servletResponse);
     } else {
-      if (session != null && session.getAttribute("user") != null) {
+      if (session != null && session.getAttribute("user") != null
+        && session.getAttribute("adminUser") != null) {
         filterChain.doFilter(servletRequest, servletResponse);
       } else {
         response.sendRedirect("/login");
@@ -54,7 +54,7 @@ public class AuthFilter implements Filter {
 
   private boolean isNeedFilter(String uri) {
 
-    for (String includeUrl : includeUrls) {
+    for (String includeUrl : URL) {
       if (includeUrl.equals(uri)) {
         return false;
       }

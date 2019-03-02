@@ -55,7 +55,12 @@ public class ArticleController {
   @ResponseBody
   public ReturnJson add(HttpServletRequest request, @RequestBody Article article) {
     try {
-      User user = (User) request.getSession().getAttribute("user");
+      User user;
+      if (request.getSession().getAttribute("adminUser") != null) {
+        user = (User) request.getSession().getAttribute("adminUser");
+      } else {
+        user = (User) request.getSession().getAttribute("user");
+      }
       article.setUserId(user.getId());
       if (article.getId() == null) {
         articleService.create(article);
