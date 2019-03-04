@@ -13,4 +13,6 @@ public interface CommentService {
   void create(Comment comment);
 
   List<CommentVO> getCommentByArticleId(Integer articleId);
+
+  int countAllComment();
 }

@@ -1,10 +1,12 @@
 package com.zbin.cisp.service.impl;
 
+import com.zbin.cisp.dao.ArticleMapper;
 import com.zbin.cisp.dao.CommentMapper;
 import com.zbin.cisp.dao.UserMapper;
 import com.zbin.cisp.domain.Comment;
 import com.zbin.cisp.domain.User;
 import com.zbin.cisp.service.CommentService;
+import com.zbin.cisp.vo.ArticleVO;
 import com.zbin.cisp.vo.CommentVO;
 import java.util.List;
 import javax.annotation.Resource;
@@ -22,6 +24,9 @@ public class CommentServiceImpl implements CommentService {
   @Resource
   UserMapper userMapper;
 
+  @Resource
+  ArticleMapper articleMapper;
+
   @Override
   public void create(Comment comment) {
     commentMapper.create(comment);
@@ -37,4 +42,15 @@ public class CommentServiceImpl implements CommentService {
     }
     return commentVOList;
   }
+
+  @Override
+  public int countAllComment() {
+    List<ArticleVO> articleVOList = articleMapper.getIndexArticles();
+    int count = 0;
+    for (ArticleVO articleVO : articleVOList) {
+      count += this.getCommentByArticleId(articleVO.getId()).size();
+    }
+    return count;
+  }
+
 }

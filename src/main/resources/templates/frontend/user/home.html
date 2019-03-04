@@ -78,7 +78,7 @@
           <#if articleVOList??>
             <#list articleVOList as article>
               <li>
-                <a href="" class="jie-title">${article.title}</a>
+                <a href="/article/${article.id}" class="jie-title">${article.title}</a>
                 <i>${article.createTime}</i>
                 <em class="layui-hide-xs">${article.commentCount}评论</em>
               </li>

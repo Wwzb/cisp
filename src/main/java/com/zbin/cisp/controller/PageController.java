@@ -119,8 +119,10 @@ public class PageController {
   public String welcome(HttpServletRequest request) {
     int userCount = userService.countAll(null);
     int articleCount = articleService.countAllArticle();
-    request.getSession().setAttribute("userCount", userCount);
-    request.getSession().setAttribute("articleCount", articleCount);
+    int commentCount = commentService.countAllComment();
+    request.setAttribute("userCount", userCount);
+    request.setAttribute("articleCount", articleCount);
+    request.setAttribute("commentCount", commentCount);
     request.setAttribute("ip", request.getRemoteAddr());
     return "backend/welcome";
   }

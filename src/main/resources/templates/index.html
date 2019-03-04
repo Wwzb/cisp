@@ -162,7 +162,7 @@
           <#list articleList as article>
             <ul class="fly-list">
               <li>
-                <a href="user/home.html" class="fly-avatar">
+                <a href="/user/${article.userId}" class="fly-avatar">
                   <img
                     src="${article.avatar!}"
                     alt="${article.nickname}">
@@ -172,7 +172,7 @@
                   <a href="/article/${article.id}" style="" id="titleColor">${article.title!}</a>
                 </h2>
                 <div class="fly-list-info">
-                  <a href="user/home.html" link>
+                  <a href="/user/${article.userId}" link>
                     <cite>${article.nickname}</cite>
                   </a>
                   <span>${article.createTime}</span>
