@@ -183,6 +183,7 @@ public class PageController {
     @RequestBody(required = false) String param) {
     List<Category> list = categoryService.getAllCategory();
     request.setAttribute("category", list);
+    request.setAttribute("articleCount", articleService.countAllArticle());
     if (param != null) {
       JSONObject json = JSON.parseObject(param);
       Integer categoryId = json.getInteger("categoryId");
@@ -192,7 +193,7 @@ public class PageController {
       List<ArticleVO> articleVOList = articleService
         .searchArticle(categoryId, startTime, endTime, keyword);
       request.getSession().setAttribute("articleList", articleVOList);
-      request.getSession().setAttribute("articleCount", articleVOList.size());
+      request.setAttribute("articleCount", articleVOList.size());
       return "/backend/article/list";
     }
     return "/backend/article/list";
