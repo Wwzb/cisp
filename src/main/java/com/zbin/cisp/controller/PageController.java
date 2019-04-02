@@ -47,26 +47,30 @@ public class PageController {
 
   @RequestMapping("/index")
   public String index(HttpServletRequest request, @RequestParam(required = false) Integer cId,
-    @RequestParam(required = false) String order) {
+    @RequestParam(required = false) String order, @RequestParam(required = false) String search) {
     List<Category> list = categoryService.getAllCategory();
     request.setAttribute("category", list);
     List<ArticleVO> articleList;
-    if (cId == null || cId == 0) {
-      articleList = articleService.getIndexArticles();
-      for (ArticleVO articleVO : articleList) {
-        articleVO.setCommentCount(commentService.getCommentByArticleId(articleVO.getId()).size());
+    if (search == null) {
+      if (cId == null || cId == 0) {
+        articleList = articleService.getIndexArticles();
+        for (ArticleVO articleVO : articleList) {
+          articleVO.setCommentCount(commentService.getCommentByArticleId(articleVO.getId()).size());
+        }
+      } else {
+        articleList = articleService.getArticlesByCategoryId(cId);
+        for (ArticleVO articleVO : articleList) {
+          articleVO.setCommentCount(commentService.getCommentByArticleId(articleVO.getId()).size());
+        }
+      }
+      if ("hot".equals(order)) {
+        articleList.sort(Comparator.comparing(ArticleVO::getCommentCount).reversed());
+      }
+      if ("new".equals(order)) {
+        articleList.sort(Comparator.comparing(ArticleVO::getCreateTime).reversed());
       }
     } else {
-      articleList = articleService.getArticlesByCategoryId(cId);
-      for (ArticleVO articleVO : articleList) {
-        articleVO.setCommentCount(commentService.getCommentByArticleId(articleVO.getId()).size());
-      }
-    }
-    if ("hot".equals(order)) {
-      articleList.sort(Comparator.comparing(ArticleVO::getCommentCount).reversed());
-    }
-    if ("new".equals(order)) {
-      articleList.sort(Comparator.comparing(ArticleVO::getCreateTime).reversed());
+      articleList = articleService.searchArticle(null, null, null, search);
     }
     List<ArticleVO> topArticleList = articleService.getTopArticle();
     if (topArticleList.size() > 0) {

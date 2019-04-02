@@ -67,15 +67,24 @@
         </li>
       </#if>
     </ul>
+    <form id="form" class="layui-form">
 
     <div class="fly-column-right layui-hide-xs">
-      <a href="/add" class="layui-btn">我要发布</a>
+      <div class="layui-inline">
+        <input type="text" name="search" placeholder="请输入关键字" autocomplete="off"
+               class="layui-input">
+      </div>
+      <button class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i>
+      </button>
+      <a href="/add" class="layui-btn">发表新帖</a>
     </div>
     <div class="layui-hide-sm layui-show-xs-block"
          style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
       <a href="/add" class="layui-btn">我要发布</a>
     </div>
   </div>
+  </form>
+
 </div>
 
 <div class="layui-container">
@@ -88,30 +97,31 @@
           </div>
           <ul class="fly-list">
             <#list topArticleList as topArticle>
-            <li>
-              <a href="/user/${topArticle.userId}" class="fly-avatar">
-                <img
-                  src="${topArticle.avatar!}"
-                  alt="${topArticle.nickname!}">
-              </a>
-              <h2>
-                <a class="layui-badge">${topArticle.category}</a>
-                <a target="_blank" href="/article/${topArticle.id}" style="color: #FFB800">${topArticle.title}</a>
-              </h2>
-              <div class="fly-list-info">
-                <a href="/user/${topArticle.userId}" link target="_blank">
-                  <cite>${topArticle.nickname}</cite>
+              <li>
+                <a href="/user/${topArticle.userId}" class="fly-avatar">
+                  <img
+                    src="${topArticle.avatar!}"
+                    alt="${topArticle.nickname!}">
                 </a>
-                <span>${topArticle.createTime}</span>
+                <h2>
+                  <a class="layui-badge">${topArticle.category}</a>
+                  <a target="_blank" href="/article/${topArticle.id}"
+                     style="color: #FFB800">${topArticle.title}</a>
+                </h2>
+                <div class="fly-list-info">
+                  <a href="/user/${topArticle.userId}" link target="_blank">
+                    <cite>${topArticle.nickname}</cite>
+                  </a>
+                  <span>${topArticle.createTime}</span>
 
-                <span class="fly-list-nums">
+                  <span class="fly-list-nums">
       <i class="iconfont icon-pinglun1" title="评论"></i> ${topArticle.commentCount!'0'}
       </span>
-              </div>
-              <div class="fly-list-badge">
-                <span class="layui-badge layui-bg-red">置顶</span>
-              </div>
-            </li>
+                </div>
+                <div class="fly-list-badge">
+                  <span class="layui-badge layui-bg-red">置顶</span>
+                </div>
+              </li>
             </#list>
           </ul>
         </div>
@@ -199,7 +209,7 @@
 
 <script src="/static/res/layui/layui.js"></script>
 <script>
-  layui.use(['layer', 'form'], function () {
+  layui.use(['jquery', 'layer', 'form'], function () {
     var layer = layui.layer
         , form = layui.form
         , $ = layui.jquery;
@@ -207,6 +217,19 @@
       var categoryId = $('#selc option:selected').val();
       window.location = "/index?cId=" + categoryId
     });
+
+    form.on("submit(search)", function (data) {
+      $.ajax({
+        url: '/search?search'+data
+        , type: 'get'
+        , contentType: 'application/json'
+        , data: JSON.stringify(data.field)
+        , success: function (result) {
+          window.location.reload();
+        }
+      });
+    });
+
   });
   layui.config({
     version: "3.0.0"
