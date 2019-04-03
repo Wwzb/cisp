@@ -31,7 +31,7 @@
           <dl class="layui-nav-child">
             <dd><a href="/user/set"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
             <dd><a href="/user/center"><i class="layui-icon"
-                                            style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
+                                          style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a>
             </dd>
             <hr style="margin: 5px 0;">
             <dd><a href="/logout" style="text-align: center;">退出</a></dd>
@@ -98,7 +98,15 @@
           </div>
           <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
             <span
-              style="padding-right: 10px; color: #FF7200">个性签名：${article.signature!'这个人有点懒，什么都没有留下'}</span>
+              style="padding-right: 10px; color: #80ff59">个性签名：${article.signature!'这个人有点懒，什么都没有留下'}</span>
+            <#if user?? && user.id == article.userId || adminUser??>
+            <form id="form" class="layui-form layui-inline">
+              <input value="${article.id}" name="id" type="hidden">
+              <button class="layui-btn layui-btn-xs layui-btn-danger" lay-filter="delete"
+                      lay-submit>删除
+              </button>
+            </form>
+            </#if>
           </div>
         </div>
         <div class="detail-body photos">
@@ -202,6 +210,29 @@
       });
       return false;
     });
+
+    form.on('submit(delete)', function (data) {
+      layer.confirm('确定要删除吗？', function (index) {
+        $.ajax({
+          url: '/article/delete'
+          , type: 'post'
+          , contentType: 'application/json'
+          , data: JSON.stringify(data.field)
+          , success: function (result) {
+            if (result.code == 0) {
+              layer.alert(result.msg, {
+                icon: 1
+              }, function () {
+                window.location.href = "/index"
+              });
+            } else {
+              layer.alert(result.msg)
+            }
+          }
+        });
+      });
+      return false;
+    });
   });
   layui.config({
     version: "3.0.0"
@@ -211,7 +242,7 @@
   }).use(['fly', 'face'], function () {
     var $ = layui.$
         , fly = layui.fly;
-    //如果你是采用模版自带的编辑器，你需要开启以下语句来解析。
+    //内容解析。
     $('.detail-body').each(function () {
       var othis = $(this), html = othis.html();
       othis.html(fly.content(html));
