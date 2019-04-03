@@ -17,4 +17,5 @@ public interface CommentMapper {
 
   List<CommentVO> getCommentByArticleId(Integer articleId);
 
+  void delete(Comment comment);
 }

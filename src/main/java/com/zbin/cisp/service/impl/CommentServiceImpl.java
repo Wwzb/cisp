@@ -53,4 +53,8 @@ public class CommentServiceImpl implements CommentService {
     return count;
   }
 
+  @Override
+  public void delete(Comment comment) {
+    commentMapper.delete(comment);
+  }
 }

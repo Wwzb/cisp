@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,6 +48,9 @@ public class UserController {
     User newUser = userService.loginCheck(user);
     if (newUser != null) {
       request.getSession().setAttribute("user", newUser);
+      if ("管理员".equals(newUser.getType())) {
+        request.getSession().setAttribute("adminUser", newUser);
+      }
       request.getSession().setMaxInactiveInterval(1800);
       return new ReturnJson(0, "登录成功", 0, "");
     } else {
@@ -76,9 +80,9 @@ public class UserController {
   }
 
   @RequestMapping("/logout")
-  public String logout(HttpServletRequest request) {
+  public void logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
     request.getSession().invalidate();
-    return "index";
+    response.sendRedirect("/index");
   }
 
   @PostMapping("/user/update")

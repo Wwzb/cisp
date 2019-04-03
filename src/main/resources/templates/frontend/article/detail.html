@@ -96,16 +96,17 @@
             </a>
             <span>${article.createTime}</span>
           </div>
-          <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
+          <div class="detail-hits layui-inline" id="LAY_jieAdmin" data-id="123">
             <span
-              style="padding-right: 10px; color: #80ff59">个性签名：${article.signature!'这个人有点懒，什么都没有留下'}</span>
+              style="padding-right: 10px; color: #ff361e">个性签名：${article.signature!'这个人有点懒，什么都没有留下'}</span>
             <#if user?? && user.id == article.userId || adminUser??>
-            <form id="form" class="layui-form layui-inline">
-              <input value="${article.id}" name="id" type="hidden">
-              <button class="layui-btn layui-btn-xs layui-btn-danger" lay-filter="delete"
-                      lay-submit>删除
-              </button>
-            </form>
+              <form id="form" class="layui-form layui-inline">
+                <input value="${article.id}" name="id" type="hidden">
+                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-danger"
+                        style="border-radius: 5px" lay-filter="delete"
+                        lay-submit>删除
+                </button>
+              </form>
             </#if>
           </div>
         </div>
@@ -140,6 +141,17 @@
                 </div>
                 <div class="detail-body jieda-body photos">
                   <p>${commentVO.content}</p>
+                </div>
+                <div class="jieda-admin">
+                  <#if user?? && user.id == commentVO.userId || adminUser??>
+                    <form id="form" class="layui-form">
+                      <input value="${commentVO.id}" name="id" type="hidden">
+                      <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary"
+                              style="border-radius: 5px" lay-filter="deleteCmt"
+                              lay-submit>删除
+                      </button>
+                    </form>
+                  </#if>
                 </div>
               </li>
             </#list>
@@ -224,6 +236,29 @@
                 icon: 1
               }, function () {
                 window.location.href = "/index"
+              });
+            } else {
+              layer.alert(result.msg)
+            }
+          }
+        });
+      });
+      return false;
+    });
+
+    form.on('submit(deleteCmt)', function (data) {
+      layer.confirm('确定要删除这条评论吗？', function (index) {
+        $.ajax({
+          url: '/article/delComment'
+          , type: 'post'
+          , contentType: 'application/json'
+          , data: JSON.stringify(data.field)
+          , success: function (result) {
+            if (result.code == 0) {
+              layer.alert(result.msg, {
+                icon: 1
+              }, function () {
+                window.location.reload()
               });
             } else {
               layer.alert(result.msg)

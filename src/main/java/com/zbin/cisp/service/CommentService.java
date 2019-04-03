@@ -15,4 +15,6 @@ public interface CommentService {
   List<CommentVO> getCommentByArticleId(Integer articleId);
 
   int countAllComment();
+
+  void delete(Comment comment);
 }

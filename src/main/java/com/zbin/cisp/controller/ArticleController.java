@@ -133,13 +133,24 @@ public class ArticleController {
     }
   }
 
+  @RequestMapping("/delComment")
+  @ResponseBody
+  public ReturnJson delComment(@RequestBody Comment comment) {
+    try {
+      commentService.delete(comment);
+      return new ReturnJson("删除评论成功");
+    } catch (Exception e) {
+      return new ReturnJson(1, "删除评论失败");
+    }
+  }
+
   @RequestMapping("/delete")
   @ResponseBody
   public ReturnJson deleteArticle(@RequestBody String param) {
     try {
       JSONObject json = JSON.parseObject(param);
       Integer id = json.getInteger("id");
-      articleService.delete(id);
+//      articleService.delete(id);
       return new ReturnJson("删除成功");
     } catch (Exception e) {
       return new ReturnJson(1, "删除失败");

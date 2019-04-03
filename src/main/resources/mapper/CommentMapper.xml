@@ -10,4 +10,8 @@
   <select id="getCommentByArticleId" parameterType="int" resultType="com.zbin.cisp.vo.CommentVO">
     select * from comment where article_id = #{articleId} order by create_time desc
   </select>
+
+  <delete id="delete">
+    delete from comment where id = #{id}
+  </delete>
 </mapper>
