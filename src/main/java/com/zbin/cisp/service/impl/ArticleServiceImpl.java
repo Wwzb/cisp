@@ -77,4 +77,14 @@ public class ArticleServiceImpl implements ArticleService {
     String keyword) {
     return articleMapper.searchArticle(categoryId, startTime, endTime, keyword);
   }
+
+  @Override
+  public int countIndexArticles() {
+    return articleMapper.countIndexArticles();
+  }
+
+  @Override
+  public int countArticleByCateId() {
+    return articleMapper.countArticleByCateId();
+  }
 }

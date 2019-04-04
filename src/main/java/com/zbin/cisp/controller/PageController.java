@@ -51,19 +51,22 @@ public class PageController {
     @RequestParam(required = false) Integer page) {
     int pageIndex = 0;
     if (page != null) {
-      pageIndex = page - 1;
+      pageIndex = (page - 1) * 10;
     }
     List<Category> list = categoryService.getAllCategory();
     request.setAttribute("category", list);
     List<ArticleVO> articleList;
+    int count = 0;
     if (search == null) {
       if (cId == null || cId == 0) {
         articleList = articleService.getIndexArticles(pageIndex);
+        count = articleService.countIndexArticles();
         for (ArticleVO articleVO : articleList) {
           articleVO.setCommentCount(commentService.getCommentByArticleId(articleVO.getId()).size());
         }
       } else {
         articleList = articleService.getArticlesByCategoryId(cId, pageIndex);
+        count = articleService.countArticleByCateId();
         for (ArticleVO articleVO : articleList) {
           articleVO.setCommentCount(commentService.getCommentByArticleId(articleVO.getId()).size());
         }
@@ -85,7 +88,7 @@ public class PageController {
     request.setAttribute("order", order);
     request.setAttribute("page", page);
     request.setAttribute("articleList", articleList);
-    request.setAttribute("articleCount", articleList.size());
+    request.setAttribute("articleCount", count);
     return "index";
   }
 

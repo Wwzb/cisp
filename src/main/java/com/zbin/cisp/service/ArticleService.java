@@ -15,11 +15,15 @@ public interface ArticleService {
 
   List<ArticleVO> getIndexArticles(Integer page);
 
+  int countIndexArticles();
+
   ArticleVO getArticleById(Integer id);
 
   List<ArticleVO> getArticlesByUserId(Integer userId);
 
   List<ArticleVO> getArticlesByCategoryId(Integer category, Integer page);
+
+  int countArticleByCateId();
 
   int countAllArticle();
 

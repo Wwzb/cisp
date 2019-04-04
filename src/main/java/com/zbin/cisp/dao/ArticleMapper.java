@@ -18,6 +18,8 @@ public interface ArticleMapper {
 
   List<ArticleVO> getIndexArticles(@Param("page") Integer page);
 
+  int countIndexArticles();
+
   ArticleVO getArticleById(Integer id);
 
   List<ArticleVO> getAticlesByUserId(Integer userId);
@@ -25,6 +27,8 @@ public interface ArticleMapper {
   int countAllArticle();
 
   List<ArticleVO> getArticleByCategoryId(Integer categoryId, Integer page);
+
+  int countArticleByCateId();
 
   void updateById(Article article);
 

@@ -16,6 +16,12 @@
     </if>
   </select>
 
+  <select id="countIndexArticles" resultType="int">
+    select count(1) from article
+  inner join category on article.category_id = category.id
+  inner join `user` on `user`.id = article.user_id order by article.create_time desc
+  </select>
+
   <select id="getArticleById" resultType="com.zbin.cisp.vo.ArticleVO">
     select article.*, user.nickname,user.signature, user.avatar,category.name as category from article
     inner join category on article.category_id = category.id
@@ -37,6 +43,13 @@
     inner join `user` on `user`.id = article.user_id
     where article.category_id = #{categoryId}
     limit #{page},10;
+  </select>
+
+  <select id="countArticleByCateId" resultType="int">
+    select count(1) from article
+    inner join category on article.category_id = category.id
+    inner join `user` on `user`.id = article.user_id
+    where article.category_id = #{categoryId}
   </select>
 
   <update id="updateById">
