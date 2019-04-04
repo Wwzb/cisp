@@ -35,6 +35,12 @@ public class UserController {
       if (userService.isUsernameExsit(user.getUsername())) {
         return new ReturnJson(2, "用户已存在!", 0, "");
       }
+      if ("男".equals(user.getGender())) {
+        user.setAvatar("http://cdn.iwzb.top/5ccc8bb0-497a-47d7-b02a-d5de38b212d6.png");
+      }
+      if ("女".equals(user.getGender())) {
+        user.setAvatar("http://cdn.iwzb.top/2f1e6296-b266-468d-a8f8-eaa2c4ddd65a.png");
+      }
       userService.register(user);
       return new ReturnJson(0, "注册成功", 0, "");
     } catch (Exception e) {

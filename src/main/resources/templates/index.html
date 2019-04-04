@@ -69,19 +69,20 @@
     </ul>
     <form id="form" class="layui-form">
 
-    <div class="fly-column-right layui-hide-xs">
-      <div class="layui-inline">
-        <input type="text" name="search" placeholder="请输入关键字" autocomplete="off"
-               class="layui-input">
+      <div class="fly-column-right layui-hide-xs">
+        <div class="layui-inline">
+          <input type="text" name="search" placeholder="请输入关键字" autocomplete="off"
+                 class="layui-input">
+        </div>
+        <button class="layui-btn" lay-submit="" lay-filter="search"><i
+            class="layui-icon">&#xe615;</i>
+        </button>
+        <a href="/add" class="layui-btn">发表新帖</a>
       </div>
-      <button class="layui-btn" lay-submit="" lay-filter="search"><i class="layui-icon">&#xe615;</i>
-      </button>
-      <a href="/add" class="layui-btn">发表新帖</a>
-    </div>
-    <div class="layui-hide-sm layui-show-xs-block"
-         style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
-      <a href="/add" class="layui-btn">我要发布</a>
-    </div>
+      <div class="layui-hide-sm layui-show-xs-block"
+           style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
+        <a href="/add" class="layui-btn">我要发布</a>
+      </div>
   </div>
   </form>
 
@@ -197,53 +198,68 @@
         <#else>
           <div class="fly-none">暂时没有数据</div>
         </#if>
-
+        <div style="text-align: center" id="page">
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="fly-footer">
-  <p>校内信息共享平台 &nbsp;&nbsp; Copyright&nbsp; &copy; 2019 Zbin</p>
-</div>
+  <div class="fly-footer">
+    <p>校内信息共享平台 &nbsp;&nbsp; Copyright&nbsp; &copy; 2019 Zbin</p>
+  </div>
 
-<script src="/static/res/layui/layui.js"></script>
-<script>
-  layui.use(['jquery', 'layer', 'form'], function () {
-    var layer = layui.layer
-        , form = layui.form
-        , $ = layui.jquery;
-    form.on('select(selectCategory)', function (data) {
-      var categoryId = $('#selc option:selected').val();
-      window.location = "/index?cId=" + categoryId
-    });
-
-    form.on("submit(search)", function (data) {
-      $.ajax({
-        url: '/search?search'+data
-        , type: 'get'
-        , contentType: 'application/json'
-        , data: JSON.stringify(data.field)
-        , success: function (result) {
-          window.location.reload();
+  <script src="/static/res/layui/layui.js"></script>
+  <script>
+    layui.use(['jquery', 'layer', 'form', 'laypage'], function () {
+      var layer = layui.layer
+          , form = layui.form
+          , $ = layui.jquery
+          , laypage = layui.laypage;
+      laypage.render({
+        elem: 'page'
+        , count: ${articleCount} //数据总数
+        , theme: '#1E9FFF'
+        , curr: ${page!'1'}
+        ,jump: function(obj, first){
+          layer.msg('第 '+ obj.curr +' 页');
+          if(!first){
+            layer.msg('第 '+ obj.curr +' 页');
+            window.location = "/index?page=" + obj.curr
+          }
         }
       });
+
+      form.on('select(selectCategory)', function (data) {
+        var categoryId = $('#selc option:selected').val();
+        window.location = "/index?cId=" + categoryId
+      });
+
+      form.on("submit(search)", function (data) {
+        $.ajax({
+          url: '/search?search' + data
+          , type: 'get'
+          , contentType: 'application/json'
+          , data: JSON.stringify(data.field)
+          , success: function (result) {
+            window.location.reload();
+          }
+        });
+      });
+
     });
+    layui.config({
+      version: "3.0.0"
+      , base: '/static/res/mods/'
+    }).extend({
+      fly: 'index'
+    }).use('fly');
+  </script>
 
-  });
-  layui.config({
-    version: "3.0.0"
-    , base: '/static/res/mods/'
-  }).extend({
-    fly: 'index'
-  }).use('fly');
-</script>
-
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol)
-      ? " https://" : " http://");
-  document.write(unescape(
-      "%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol
-      + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol)
+        ? " https://" : " http://");
+    document.write(unescape(
+        "%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol
+        + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
 
 </body>
 </html>

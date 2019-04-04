@@ -23,8 +23,8 @@ public class ArticleServiceImpl implements ArticleService {
   }
 
   @Override
-  public List<ArticleVO> getIndexArticles() {
-    return articleMapper.getIndexArticles();
+  public List<ArticleVO> getIndexArticles(Integer page) {
+    return articleMapper.getIndexArticles(page);
   }
 
   @Override
@@ -43,8 +43,8 @@ public class ArticleServiceImpl implements ArticleService {
   }
 
   @Override
-  public List<ArticleVO> getArticlesByCategoryId(Integer category) {
-    return articleMapper.getArticleByCategoryId(category);
+  public List<ArticleVO> getArticlesByCategoryId(Integer category, Integer page) {
+    return articleMapper.getArticleByCategoryId(category, page);
   }
 
   @Override

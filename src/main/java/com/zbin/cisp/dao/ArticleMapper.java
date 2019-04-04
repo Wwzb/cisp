@@ -4,6 +4,7 @@ import com.zbin.cisp.domain.Article;
 import com.zbin.cisp.vo.ArticleVO;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,7 +16,7 @@ public interface ArticleMapper {
 
   void insert(Article article);
 
-  List<ArticleVO> getIndexArticles();
+  List<ArticleVO> getIndexArticles(@Param("page") Integer page);
 
   ArticleVO getArticleById(Integer id);
 
@@ -23,7 +24,7 @@ public interface ArticleMapper {
 
   int countAllArticle();
 
-  List<ArticleVO> getArticleByCategoryId(Integer categoryId);
+  List<ArticleVO> getArticleByCategoryId(Integer categoryId, Integer page);
 
   void updateById(Article article);
 
@@ -35,4 +36,5 @@ public interface ArticleMapper {
 
   List<ArticleVO> searchArticle(Integer categoryId, String startTime, String endTime,
     String keyword);
+
 }

@@ -13,13 +13,13 @@ public interface ArticleService {
 
   void create(Article article);
 
-  List<ArticleVO> getIndexArticles();
+  List<ArticleVO> getIndexArticles(Integer page);
 
   ArticleVO getArticleById(Integer id);
 
   List<ArticleVO> getArticlesByUserId(Integer userId);
 
-  List<ArticleVO> getArticlesByCategoryId(Integer category);
+  List<ArticleVO> getArticlesByCategoryId(Integer category, Integer page);
 
   int countAllArticle();
 
@@ -33,5 +33,4 @@ public interface ArticleService {
 
   List<ArticleVO> searchArticle(Integer categoryId, String startTime, String endTime,
     String keyword);
-
 }

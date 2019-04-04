@@ -61,6 +61,9 @@ public class ArticleController {
       } else {
         user = (User) request.getSession().getAttribute("user");
       }
+      if ("禁言".equals(user.getStatus())) {
+        return new ReturnJson(1, "您被禁言，无法发布文章!");
+      }
       article.setUserId(user.getId());
       if (article.getId() == null) {
         articleService.create(article);

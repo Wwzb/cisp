@@ -145,7 +145,7 @@
         , success: function (result) {
           if (result.code == 0) {
             layer.msg(result.msg);
-          setTimeout('window.parent.location.reload()', 2000);
+          setTimeout('window.location.href = "/index"', 2000);
           }else {
             layer.msg(result.msg);
           }

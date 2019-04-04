@@ -7,8 +7,8 @@
   </select>
 
   <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-    insert into user(username,password,reg_time,nickname,gender)
-    values (#{username},#{password},now(),#{nickname},#{gender})
+    insert into user(username,password,reg_time,nickname,gender,avatar)
+    values (#{username},#{password},now(),#{nickname},#{gender},#{avatar})
   </insert>
 
   <select id="countAll" resultType="integer" parameterType="string">

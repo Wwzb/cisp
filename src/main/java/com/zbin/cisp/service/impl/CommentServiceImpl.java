@@ -45,7 +45,7 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   public int countAllComment() {
-    List<ArticleVO> articleVOList = articleMapper.getIndexArticles();
+    List<ArticleVO> articleVOList = articleMapper.getIndexArticles(null);
     int count = 0;
     for (ArticleVO articleVO : articleVOList) {
       count += this.getCommentByArticleId(articleVO.getId()).size();
