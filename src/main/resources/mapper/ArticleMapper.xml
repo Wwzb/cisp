@@ -96,4 +96,19 @@
     </if>
     order by article.create_time desc;
   </select>
+
+  <select id="getHotArticles" resultType="com.zbin.cisp.domain.Article">
+    select * from article where create_time between #{startDate} and #{endDate}
+    order by comment_count desc limit 10
+  </select>
+
+  <update id="addComment">
+    update article set comment_count = comment_count + 1
+    where id = #{id}
+  </update>
+
+  <update id="deleteComment">
+    update article set comment_count = comment_count - 1
+    where id = #{id}
+  </update>
 </mapper>

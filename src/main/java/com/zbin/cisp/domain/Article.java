@@ -17,6 +17,7 @@ public class Article {
   private Integer star;
   private Integer status;
   private Boolean top;
+  private Integer commentCount;
 
   public Integer getId() {
     return id;
@@ -104,5 +105,13 @@ public class Article {
 
   public void setTop(Boolean top) {
     this.top = top;
+  }
+
+  public Integer getCommentCount() {
+    return commentCount;
+  }
+
+  public void setCommentCount(Integer commentCount) {
+    this.commentCount = commentCount;
   }
 }

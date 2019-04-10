@@ -14,4 +14,12 @@
   <delete id="delete">
     delete from comment where id = #{id}
   </delete>
+
+  <select id="getById" resultType="com.zbin.cisp.domain.Comment">
+    select * from comment where id = #{id}
+  </select>
+
+  <delete id="deleteByArticleId">
+    delete from comment where article_id = #{articleId}
+  </delete>
 </mapper>

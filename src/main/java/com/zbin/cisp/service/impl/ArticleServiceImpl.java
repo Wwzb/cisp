@@ -1,9 +1,11 @@
 package com.zbin.cisp.service.impl;
 
 import com.zbin.cisp.dao.ArticleMapper;
+import com.zbin.cisp.dao.CommentMapper;
 import com.zbin.cisp.domain.Article;
 import com.zbin.cisp.service.ArticleService;
 import com.zbin.cisp.vo.ArticleVO;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,9 @@ public class ArticleServiceImpl implements ArticleService {
 
   @Resource
   ArticleMapper articleMapper;
+
+  @Resource
+  CommentMapper commentMapper;
 
   @Override
   public void create(Article article) {
@@ -55,6 +60,7 @@ public class ArticleServiceImpl implements ArticleService {
   @Override
   public void delete(Integer id) {
     articleMapper.deleteById(id);
+    commentMapper.deleteByArticleId(id);
   }
 
   @Override
@@ -86,5 +92,12 @@ public class ArticleServiceImpl implements ArticleService {
   @Override
   public int countArticleByCateId() {
     return articleMapper.countArticleByCateId();
+  }
+
+  @Override
+  public List<Article> getHotArticles() {
+    Date endDate = new Date();
+    Date startDate = new Date(System.currentTimeMillis() - 7 * 24 * 60 * 60 * 1000);
+    return articleMapper.getHotArticles(startDate, endDate);
   }
 }

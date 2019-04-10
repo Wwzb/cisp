@@ -2,6 +2,7 @@ package com.zbin.cisp.dao;
 
 import com.zbin.cisp.domain.Article;
 import com.zbin.cisp.vo.ArticleVO;
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -41,4 +42,9 @@ public interface ArticleMapper {
   List<ArticleVO> searchArticle(Integer categoryId, String startTime, String endTime,
     String keyword);
 
+  List<Article> getHotArticles(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
+  void addComment(Integer id);
+
+  void deleteComment(Integer id);
 }

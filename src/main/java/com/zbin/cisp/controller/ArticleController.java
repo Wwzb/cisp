@@ -153,7 +153,7 @@ public class ArticleController {
     try {
       JSONObject json = JSON.parseObject(param);
       Integer id = json.getInteger("id");
-//      articleService.delete(id);
+      articleService.delete(id);
       return new ReturnJson("删除成功");
     } catch (Exception e) {
       return new ReturnJson(1, "删除失败");
@@ -172,5 +172,6 @@ public class ArticleController {
       return new ReturnJson(1, "置顶失败");
     }
   }
+
 
 }

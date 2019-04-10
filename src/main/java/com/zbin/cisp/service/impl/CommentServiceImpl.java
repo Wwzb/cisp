@@ -30,6 +30,7 @@ public class CommentServiceImpl implements CommentService {
   @Override
   public void create(Comment comment) {
     commentMapper.create(comment);
+    articleMapper.addComment(comment.getArticleId());
   }
 
   @Override
@@ -55,6 +56,8 @@ public class CommentServiceImpl implements CommentService {
 
   @Override
   public void delete(Comment comment) {
+    Comment tmpComment = commentMapper.getById(comment.getId());
     commentMapper.delete(comment);
+    articleMapper.deleteComment(tmpComment.getArticleId());
   }
 }

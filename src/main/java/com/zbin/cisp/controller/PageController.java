@@ -53,6 +53,7 @@ public class PageController {
     if (page != null) {
       pageIndex = (page - 1) * 10;
     }
+    List<Article> hotArticles = articleService.getHotArticles();
     List<Category> list = categoryService.getAllCategory();
     request.setAttribute("category", list);
     List<ArticleVO> articleList;
@@ -89,6 +90,7 @@ public class PageController {
     request.setAttribute("page", page);
     request.setAttribute("articleList", articleList);
     request.setAttribute("articleCount", count);
+    request.setAttribute("hotArticles", hotArticles);
     return "index";
   }
 

@@ -37,4 +37,6 @@ public interface ArticleService {
 
   List<ArticleVO> searchArticle(Integer categoryId, String startTime, String endTime,
     String keyword);
+
+  List<Article> getHotArticles();
 }
