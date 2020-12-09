@@ -14,4 +14,4 @@ CISP 全称 Campus Information Sharing Platform -- 校内信息共享平台
 
 数据库使用MySQL
 
-典型MVC三层架构 + rest风格URL
+典型MVC三层架构
