@@ -2,7 +2,7 @@
 
 作者：Zbin
 
-WX：996627951
+WX：wzb-_-
 
 CISP 全称 Campus Information Sharing Platform -- 校内信息共享平台
 
@@ -14,4 +14,4 @@ CISP 全称 Campus Information Sharing Platform -- 校内信息共享平台
 
 数据库使用MySQL
 
-典型MVC三层架构
+MVC三层架构
