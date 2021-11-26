@@ -2,7 +2,6 @@
 
 作者：Zbin
 
-WX：wzb-_-
 
 CISP 全称 Campus Information Sharing Platform -- 校内信息共享平台
 
